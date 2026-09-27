@@ -58,6 +58,24 @@ export function AppShell({ children }: AppShellProps) {
         <main>{children}</main>
 
         <div slot="footer">
+          <nav className="app-related wa-cluster wa-gap-s" aria-label="Related projects">
+            <a
+              href="https://ai.mikedemo.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="MikeDemo AI (opens in new tab)"
+            >
+              <WaIcon name="robot" aria-hidden="true" /> ai.mikedemo.dev
+            </a>
+            <a
+              href="https://local.mikedemo.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="MikeDemo Local (opens in new tab)"
+            >
+              <WaIcon name="house-laptop" aria-hidden="true" /> local.mikedemo.dev
+            </a>
+          </nav>
           <SiteFooter madeBy="MikeDemo" licensesHref="/licenses" />
         </div>
       </WaPage>

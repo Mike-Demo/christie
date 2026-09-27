@@ -35,8 +35,6 @@ function Licenses() {
                   url: "https://github.com/Automattic/harper",
                   note: "Performs all grammar analysis, in the browser and in the companion grammar service.",
                 },
-                { property: "og:image", content: "https://ceoowl.com/og-image.png" },
-                { name: "twitter:image", content: "https://ceoowl.com/og-image.png" },
               ],
             },
           ]}

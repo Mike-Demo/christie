@@ -23,6 +23,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "google-site-verification",
+        content: "-aUQjbJ2xLjOuZQn15zcAKw4nnrN1bNLEUPzAMDV88E",
+      },
     ],
     links: [
       ...WEB_AWESOME_STYLE_URLS.map((href) => ({ rel: "stylesheet", href })),

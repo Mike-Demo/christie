@@ -6,14 +6,14 @@ import { LicensesPage } from "@/design-system/font-awsome-web-awesome-171158";
 export const Route = createFileRoute("/licenses")({
   head: () => ({
     meta: [
-      { title: "Licenses — Harper Grammar" },
+      { title: "Licenses — CEO Owl" },
       {
         name: "description",
         content:
-          "Open-source credits for Harper Grammar, including the Harper grammar engine, Web Awesome, Font Awesome Free, React and TanStack.",
+          "Open-source credits for CEO Owl, including the Harper grammar engine, Web Awesome, Font Awesome Free, React and TanStack.",
       },
-      { property: "og:title", content: "Licenses — Harper Grammar" },
-      { property: "og:description", content: "Open-source credits for Harper Grammar." },
+      { property: "og:title", content: "Licenses — CEO Owl" },
+      { property: "og:description", content: "Open-source credits for CEO Owl." },
     ],
   }),
   component: Licenses,

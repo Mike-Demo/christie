@@ -1,4 +1,4 @@
-# Christie — privacy-first grammar checking
+# CEO Owl — privacy-first grammar checking
 
 A grammar checker built on [Harper](https://github.com/Automattic/harper) with
 two ways in:

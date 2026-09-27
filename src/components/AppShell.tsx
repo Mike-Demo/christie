@@ -31,7 +31,7 @@ export function AppShell({ children }: AppShellProps) {
         <header slot="header" className="app-band wa-split wa-align-items-center">
           <Link to="/" className="app-brand wa-cluster wa-gap-xs wa-align-items-center">
             <img src={logoAsset.url} alt="" className="app-brand-mark" />
-            <strong>Harper Grammar</strong>
+            <strong>CEO Owl</strong>
           </Link>
           <nav className="wa-cluster wa-gap-2xs app-desktop-nav" aria-label="Quick links">
             <Link to="/editor">

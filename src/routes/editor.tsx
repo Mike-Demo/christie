@@ -18,13 +18,13 @@ import { applySafeSuggestions, type GrammarResult, type Issue } from "@/lib/gram
 export const Route = createFileRoute("/editor")({
   head: () => ({
     meta: [
-      { title: "Editor — Harper Grammar" },
+      { title: "Editor — CEO Owl" },
       {
         name: "description",
         content:
           "Paste English text and check it for grammar, spelling and style problems. The check runs in your browser; your text never leaves this device.",
       },
-      { property: "og:title", content: "Editor — Harper Grammar" },
+      { property: "og:title", content: "Editor — CEO Owl" },
       {
         property: "og:description",
         content: "Check English text in your browser. Your writing never leaves this device.",

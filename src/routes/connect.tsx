@@ -19,16 +19,16 @@ export const Route = createFileRoute("/connect")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Connect an AI client — Harper Grammar" },
+      { title: "Connect an AI client — CEO Owl" },
       {
         name: "description",
         content:
-          "Sign in and point Claude, ChatGPT, Cursor or another assistant at the Harper grammar tool. No keys to copy — your client signs you in.",
+          "Sign in and point Claude, ChatGPT, Cursor or another assistant at the CEO Owl grammar tool. No keys to copy — your client signs you in.",
       },
-      { property: "og:title", content: "Connect an AI client — Harper Grammar" },
+      { property: "og:title", content: "Connect an AI client — CEO Owl" },
       {
         property: "og:description",
-        content: "Point your assistant at the Harper grammar tool. No keys to copy.",
+        content: "Point your assistant at the CEO Owl grammar tool. No keys to copy.",
       },
     ],
   }),
@@ -60,7 +60,7 @@ function ConnectPage() {
   }, [refreshClients, user]);
 
   const config = JSON.stringify(
-    { mcpServers: { "harper-grammar": { url: endpoint || "https://example.com/mcp" } } },
+    { mcpServers: { "ceo-owl": { url: endpoint || "https://example.com/mcp" } } },
     null,
     2,
   );

@@ -8,8 +8,8 @@ import checkGrammarTool from "./tools/check-grammar";
 const projectRef = import.meta.env['VITE_SUPABASE_PROJECT_ID'] ?? "project-ref-unset";
 
 export default defineMcp({
-  name: "christie",
-  title: "Christie",
+  name: "ceo-owl",
+  title: "CEO Owl",
   version: "0.1.0",
   instructions:
     "Privacy-first English grammar checking powered by Harper. Use `check_grammar` to find grammar, spelling, punctuation and style problems in English text; it returns findings with character offsets and suggested replacements. Only English is supported. Submitted text is processed in memory and never stored.",

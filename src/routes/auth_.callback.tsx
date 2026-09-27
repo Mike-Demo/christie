@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { WaSpinner } from "@/design-system/font-awsome-web-awesome-171158";
 import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/auth/callback")({
+export const Route = createFileRoute("/auth_/callback")({
   ssr: false,
   component: AuthCallback,
 });
@@ -35,8 +35,13 @@ function AuthCallback() {
     if (tokenHash) {
       // Gravatar sign-in: redeem the one-time token issued by our server.
       window.history.replaceState(null, "", "/auth/callback");
-      void supabase.auth.verifyOtp({ token_hash: tokenHash, type: "magiclink" }).then(({ error }) => {
-        if (error && !cancelled) window.location.replace(`/auth?error=gravatar&next=${encodeURIComponent(target)}`);
+      void supabase.auth.verifyOtp({ token_hash: tokenHash, type: "magiclink" }).then(({ data, error }) => {
+        if (cancelled) return;
+        if (error || !data.session) {
+          window.location.replace(`/auth?error=gravatar&next=${encodeURIComponent(target)}`);
+          return;
+        }
+        go();
       });
     } else {
       void supabase.auth.getSession().then(({ data }) => {

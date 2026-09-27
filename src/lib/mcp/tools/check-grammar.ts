@@ -21,9 +21,7 @@ function toJson(result: GrammarResult) {
       error: {
         code: result.error.code,
         message: result.error.message,
-        ...(result.error.retry_after_seconds === undefined
-          ? {}
-          : { retry_after_seconds: result.error.retry_after_seconds }),
+        retry_after_s: result.error.retry_after_s,
       },
     };
   }

@@ -83,7 +83,7 @@ const RATE_LIMITED = `{
   "error": {
     "code": "rate_limited",
     "message": "Hourly limit reached. Try again in <seconds> seconds.",
-    "retry_after_seconds": 1800
+    "retry_after_s": 1800
   }
 }`;
 

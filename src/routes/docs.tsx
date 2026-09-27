@@ -184,7 +184,7 @@ function DocsPage() {
         <h3>Rate limited</h3>
         <pre className="app-code">{RATE_LIMITED}</pre>
         <p>
-          Wait <code>retry_after_seconds</code> before retrying. The default allowance is{" "}
+          Wait <code>retry_after_s</code> seconds before retrying. The default allowance is{" "}
           {DEFAULT_LIMITS.checksPerHour} checks per hour per account.
         </p>
         <h3>Unsupported language</h3>

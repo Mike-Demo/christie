@@ -7,6 +7,8 @@
  */
 import { useCallback, useMemo } from "react";
 import IsolatedBlockEditor from "@automattic/isolated-block-editor";
+import "@automattic/isolated-block-editor/build-browser/core.css";
+import "@automattic/isolated-block-editor/build-browser/isolated-block-editor.css";
 
 import { ALLOWED_BLOCKS, plainTextToHtml, type EditorBlock } from "./text";
 

@@ -30,7 +30,7 @@ export default function BlockEditor({ initialText, onBlocksChange, onError }: Bl
         allowApi: false,
         blocks: { allowBlocks: [...ALLOWED_BLOCKS], disallowBlocks: [] },
         toolbar: {
-          inserter: true,
+          inserter: false,
           inspector: false,
           navigation: false,
           undo: true,

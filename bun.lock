@@ -101,6 +101,7 @@
     "@wordpress/shortcode": "4.24.0",
     "@wordpress/sync": "1.30.0",
     "@wordpress/token-list": "3.24.0",
+    "@wordpress/undo-manager": "1.24.0",
     "@wordpress/url": "4.24.0",
     "@wordpress/viewport": "6.24.0",
     "@wordpress/warning": "3.24.0",
@@ -768,7 +769,7 @@
 
     "@wordpress/token-list": ["@wordpress/token-list@3.24.0", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@wordpress/token-list/-/token-list-3.24.0.tgz", { "dependencies": { "@babel/runtime": "7.25.7" } }, "sha512-0rv+ORMDlJPkp4PcfOhJrLkRjtIpkzZmwRpIJNXRdYJ8mUbF3TAjfvujZESkadGirwQw6vqmaNKtPaxCSAuDbg=="],
 
-    "@wordpress/undo-manager": ["@wordpress/undo-manager@1.56.0", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@wordpress/undo-manager/-/undo-manager-1.56.0.tgz", { "dependencies": { "@wordpress/is-shallow-equal": "^5.56.0" } }, "sha512-1jHpsam603sVmgmrV8ndAlaOpwK4CVhAeB9myz5CgRvPN7qukja8T672W+LkVxyAW8oPC1A/msSo9RXSRaoOFQ=="],
+    "@wordpress/undo-manager": ["@wordpress/undo-manager@1.24.0", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@wordpress/undo-manager/-/undo-manager-1.24.0.tgz", { "dependencies": { "@babel/runtime": "7.25.7", "@wordpress/is-shallow-equal": "^5.24.0" } }, "sha512-dXZaPRxsH4DaPMXJ1OjKrxC+hDYK4fS6c64P4/01b1dFJ06okTp7YBd10YpW46Yiok0GwgStG+4mhrOwJbptBQ=="],
 
     "@wordpress/upload-media": ["@wordpress/upload-media@0.9.0", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@wordpress/upload-media/-/upload-media-0.9.0.tgz", { "dependencies": { "@babel/runtime": "7.25.7", "@wordpress/api-fetch": "^7.24.0", "@wordpress/blob": "^4.24.0", "@wordpress/compose": "^7.24.0", "@wordpress/data": "^10.24.0", "@wordpress/element": "^6.24.0", "@wordpress/i18n": "^5.24.0", "@wordpress/preferences": "^4.24.0", "@wordpress/private-apis": "^1.24.0", "@wordpress/url": "^4.24.0", "uuid": "^9.0.1" }, "peerDependencies": { "react": "^18.0.0", "react-dom": "^18.0.0" } }, "sha512-hDl5FY7y0aq5ASw5TnCduQIXOOymvsl+F/+q1cHcPCeLxTrZABIIRm5nzobIiggox2FcSM5t8fXle9WHGFvXmw=="],
 

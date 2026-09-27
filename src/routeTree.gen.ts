@@ -24,6 +24,8 @@ import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as Char91__componentChar93PreviewSplatRouteImport } from './routes/[__component].preview.$'
 import { Route as Char91__mockupChar93PreviewSplatRouteImport } from './routes/[__mockup].preview.$'
+import { Route as ApiPublicGravatarCallbackRouteImport } from './routes/api/public/gravatar.callback'
+import { Route as ApiPublicGravatarStartRouteImport } from './routes/api/public/gravatar.start'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -103,6 +105,17 @@ const Char91__mockupChar93PreviewSplatRoute =
     path: '/__mockup/preview/$',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicGravatarCallbackRoute =
+  ApiPublicGravatarCallbackRouteImport.update({
+    id: '/api/public/gravatar/callback',
+    path: '/api/public/gravatar/callback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicGravatarStartRoute = ApiPublicGravatarStartRouteImport.update({
+  id: '/api/public/gravatar/start',
+  path: '/api/public/gravatar/start',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -120,6 +133,8 @@ export interface FileRoutesByFullPath {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/__component/preview/$': typeof Char91__componentChar93PreviewSplatRoute
   '/__mockup/preview/$': typeof Char91__mockupChar93PreviewSplatRoute
+  '/api/public/gravatar/callback': typeof ApiPublicGravatarCallbackRoute
+  '/api/public/gravatar/start': typeof ApiPublicGravatarStartRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -137,6 +152,8 @@ export interface FileRoutesByTo {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/__component/preview/$': typeof Char91__componentChar93PreviewSplatRoute
   '/__mockup/preview/$': typeof Char91__mockupChar93PreviewSplatRoute
+  '/api/public/gravatar/callback': typeof ApiPublicGravatarCallbackRoute
+  '/api/public/gravatar/start': typeof ApiPublicGravatarStartRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -155,6 +172,8 @@ export interface FileRoutesById {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/__component/preview/$': typeof Char91__componentChar93PreviewSplatRoute
   '/__mockup/preview/$': typeof Char91__mockupChar93PreviewSplatRoute
+  '/api/public/gravatar/callback': typeof ApiPublicGravatarCallbackRoute
+  '/api/public/gravatar/start': typeof ApiPublicGravatarStartRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -174,6 +193,8 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/__component/preview/$'
     | '/__mockup/preview/$'
+    | '/api/public/gravatar/callback'
+    | '/api/public/gravatar/start'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -191,6 +212,8 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/__component/preview/$'
     | '/__mockup/preview/$'
+    | '/api/public/gravatar/callback'
+    | '/api/public/gravatar/start'
   id:
     | '__root__'
     | '/'
@@ -208,6 +231,8 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/__component/preview/$'
     | '/__mockup/preview/$'
+    | '/api/public/gravatar/callback'
+    | '/api/public/gravatar/start'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -225,6 +250,8 @@ export interface RootRouteChildren {
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91__componentChar93PreviewSplatRoute: typeof Char91__componentChar93PreviewSplatRoute
   Char91__mockupChar93PreviewSplatRoute: typeof Char91__mockupChar93PreviewSplatRoute
+  ApiPublicGravatarCallbackRoute: typeof ApiPublicGravatarCallbackRoute
+  ApiPublicGravatarStartRoute: typeof ApiPublicGravatarStartRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -334,6 +361,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91__mockupChar93PreviewSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/gravatar/callback': {
+      id: '/api/public/gravatar/callback'
+      path: '/api/public/gravatar/callback'
+      fullPath: '/api/public/gravatar/callback'
+      preLoaderRoute: typeof ApiPublicGravatarCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/gravatar/start': {
+      id: '/api/public/gravatar/start'
+      path: '/api/public/gravatar/start'
+      fullPath: '/api/public/gravatar/start'
+      preLoaderRoute: typeof ApiPublicGravatarStartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -364,6 +405,8 @@ const rootRouteChildren: RootRouteChildren = {
   Char91__componentChar93PreviewSplatRoute:
     Char91__componentChar93PreviewSplatRoute,
   Char91__mockupChar93PreviewSplatRoute: Char91__mockupChar93PreviewSplatRoute,
+  ApiPublicGravatarCallbackRoute: ApiPublicGravatarCallbackRoute,
+  ApiPublicGravatarStartRoute: ApiPublicGravatarStartRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

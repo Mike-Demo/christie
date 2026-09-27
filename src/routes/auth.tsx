@@ -22,7 +22,10 @@ function safeNext(value: unknown): string {
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
-  validateSearch: (search: Record<string, unknown>) => ({ next: safeNext(search['next']) }),
+  validateSearch: (search: Record<string, unknown>): { next: string; error?: string } => ({
+    next: safeNext(search['next']),
+    ...(search['error'] === "gravatar" ? { error: "gravatar" } : {}),
+  }),
   head: () => ({
     meta: [
       { title: "Sign in — CEO Owl" },
@@ -40,12 +43,16 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
-  const { next } = Route.useSearch();
+  const { next, error: searchError } = Route.useSearch();
   const navigate = useNavigate();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(
+    searchError === "gravatar"
+      ? "Gravatar sign-in did not complete. Please try again or use another method."
+      : null,
+  );
   const emailRef = useRef<HTMLElement | null>(null);
   const passwordRef = useRef<HTMLElement | null>(null);
 
@@ -132,6 +139,17 @@ function AuthPage() {
             <WaButton appearance="outlined" disabled={busy} onClick={() => void googleSignIn()}>
               <WaIcon slot="start" family="brands" name="google" />
               Continue with Google
+            </WaButton>
+
+            <WaButton
+              appearance="outlined"
+              disabled={busy}
+              onClick={() => {
+                window.location.href = `/api/public/gravatar/start?next=${encodeURIComponent(next)}`;
+              }}
+            >
+              <WaIcon slot="start" name="circle-user" />
+              Continue with Gravatar
             </WaButton>
 
             <WaDivider />

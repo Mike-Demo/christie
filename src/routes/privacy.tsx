@@ -76,6 +76,14 @@ function PrivacyPage() {
           Usage rows are protected so each account can only read its own. Aggregate, anonymous
           totals are visible to service administrators on the health page.
         </p>
+
+        <h2>Signing in with Gravatar</h2>
+        <p>
+          If you choose &ldquo;Continue with Gravatar&rdquo;, Gravatar shares your verified email
+          address, display name and avatar. We keep only the account email, name and avatar link.
+          The Gravatar access token is used once to read that profile and is never stored or logged.
+          CEO Owl is not endorsed by or affiliated with Automattic.
+        </p>
       </section>
     </AppShell>
   );

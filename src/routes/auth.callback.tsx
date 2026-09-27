@@ -19,7 +19,9 @@ function AuthCallback() {
     // Wait until the session is actually available before leaving this public
     // route: protected destinations would otherwise bounce back to sign-in.
     let cancelled = false;
-    const target = safeNext(sessionStorage.getItem("harper:next"));
+    const params = new URLSearchParams(window.location.search);
+    const tokenHash = params.get("token_hash");
+    const target = safeNext(params.get("next") ?? sessionStorage.getItem("harper:next"));
     sessionStorage.removeItem("harper:next");
 
     const go = () => {
@@ -30,9 +32,17 @@ function AuthCallback() {
       if (session) go();
     });
 
-    void supabase.auth.getSession().then(({ data }) => {
-      if (data.session) go();
-    });
+    if (tokenHash) {
+      // Gravatar sign-in: redeem the one-time token issued by our server.
+      window.history.replaceState(null, "", "/auth/callback");
+      void supabase.auth.verifyOtp({ token_hash: tokenHash, type: "magiclink" }).then(({ error }) => {
+        if (error && !cancelled) window.location.replace(`/auth?error=gravatar&next=${encodeURIComponent(target)}`);
+      });
+    } else {
+      void supabase.auth.getSession().then(({ data }) => {
+        if (data.session) go();
+      });
+    }
 
     const timer = setTimeout(() => {
       if (!cancelled) window.location.replace("/auth");

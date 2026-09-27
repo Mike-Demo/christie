@@ -49,7 +49,7 @@ const FEATURES = [
 function Landing() {
   return (
     <AppShell>
-      <section className="app-section app-hero wa-stack wa-gap-l">
+      <section className="app-section app-hero app-hero-layout wa-gap-l">
         <div className="app-measure wa-stack wa-gap-m">
           <h1>Grammar checking that keeps your writing to yourself</h1>
           <p>

@@ -39,6 +39,25 @@ function Licenses() {
                 },
               ],
             },
+            {
+              title: "Block editor",
+              entries: [
+                {
+                  name: "Isolated Block Editor",
+                  author: "Automattic and contributors",
+                  license: "GPL-2.0-or-later",
+                  url: "https://github.com/Automattic/isolated-block-editor",
+                  note: "Powers the optional block editor mode. CEO Owl is not endorsed by or affiliated with Automattic.",
+                },
+                {
+                  name: "Gutenberg",
+                  author: "WordPress contributors",
+                  license: "GPL-2.0-or-later",
+                  url: "https://github.com/WordPress/gutenberg",
+                  note: "The WordPress block editor packages that the block editor mode is built on.",
+                },
+              ],
+            },
           ]}
         />
       </section>

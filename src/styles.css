@@ -153,3 +153,13 @@ wa-page[view="desktop"] .app-editor-grid {
   align-items: center;
   gap: var(--wa-space-2xs);
 }
+
+.app-block-editor {
+  border-style: var(--wa-border-style);
+  border-width: var(--wa-border-width-s);
+  border-color: var(--wa-color-gray-80);
+  border-radius: var(--wa-border-radius-m);
+  overflow: hidden;
+  min-height: 100%;
+  background-color: var(--wa-color-surface-default);
+}

@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { AppShell } from "@/components/AppShell";
 import {
   WaBadge,
   WaButton,
+  WaButtonGroup,
   WaCallout,
   WaCard,
   WaIcon,
@@ -14,6 +15,10 @@ import {
 } from "@/design-system/font-awsome-web-awesome-171158";
 import { DEFAULT_LIMITS } from "@/lib/grammar/config";
 import { applySafeSuggestions, type GrammarResult, type Issue } from "@/lib/grammar/contract";
+import { blocksToPlainText, type EditorBlock } from "@/lib/block-editor/text";
+
+// Loaded on demand only: the Gutenberg bundle is large and browser-only.
+const LazyBlockEditor = lazy(() => import("@/lib/block-editor/BlockEditor"));
 
 export const Route = createFileRoute("/editor")({
   head: () => ({
@@ -41,15 +46,23 @@ type Status = "idle" | "loading-engine" | "checking" | "done" | "error";
 const SAMPLE =
   "This is an test sentance with an error. I has a apple, and their going to the store tomorow.";
 
+type EditorMode = "plain" | "blocks";
+
 function EditorPage() {
   const [text, setText] = useState("");
+  const [mode, setMode] = useState<EditorMode>("plain");
+  const [blocks, setBlocks] = useState<EditorBlock[]>([]);
+  // Seed and remount key for the block editor (it only reads initialText on mount).
+  const [blockSeed, setBlockSeed] = useState("");
+  const [blockKey, setBlockKey] = useState(0);
   const [status, setStatus] = useState<Status>("idle");
   const [result, setResult] = useState<GrammarResult | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const textareaRef = useRef<HTMLElement | null>(null);
 
   const maxChars = DEFAULT_LIMITS.maxCharsPerRequest;
-  const overLimit = text.length > maxChars;
+  const effectiveText = mode === "blocks" ? blocksToPlainText(blocks) : text;
+  const overLimit = effectiveText.length > maxChars;
 
   // Warm the engine after hydration so the first check is not the slow one.
   useEffect(() => {
@@ -87,9 +100,34 @@ function EditorPage() {
     if (element) element.value = next;
   }, []);
 
+  /** Replace the block editor's content by re-seeding and remounting it. */
+  const setBlockText = useCallback((next: string) => {
+    setBlockSeed(next);
+    setBlocks([]);
+    setBlockKey((key) => key + 1);
+  }, []);
+
+  const switchMode = useCallback(
+    (next: EditorMode) => {
+      if (next === mode) return;
+      if (next === "blocks") {
+        setBlockSeed(text);
+        setBlocks([]);
+        setBlockKey((key) => key + 1);
+      } else {
+        setEditorText(blocksToPlainText(blocks));
+      }
+      setResult(null);
+      setStatus("idle");
+      setNotice(null);
+      setMode(next);
+    },
+    [blocks, mode, setEditorText, text],
+  );
+
   const runCheck = useCallback(async () => {
     setNotice(null);
-    if (text.trim().length === 0) {
+    if (effectiveText.trim().length === 0) {
       setResult(null);
       setStatus("idle");
       setNotice("Type or paste some text first.");
@@ -100,7 +138,7 @@ function EditorPage() {
     try {
       const { checkGrammarInBrowser } = await import("@/lib/grammar/browser-linter");
       setStatus("checking");
-      const next = await checkGrammarInBrowser({ text, maxChars });
+      const next = await checkGrammarInBrowser({ text: effectiveText, maxChars });
       setResult(next);
       setStatus(next.success ? "done" : "error");
     } catch {
@@ -108,14 +146,18 @@ function EditorPage() {
       setStatus("error");
       setNotice("The check could not be completed. Please try again.");
     }
-  }, [maxChars, text]);
+  }, [effectiveText, maxChars]);
 
   const clearAll = useCallback(() => {
-    setEditorText("");
+    if (mode === "blocks") {
+      setBlockText("");
+    } else {
+      setEditorText("");
+    }
     setResult(null);
     setStatus("idle");
     setNotice(null);
-  }, [setEditorText]);
+  }, [mode, setBlockText, setEditorText]);
 
   const issues: Issue[] = useMemo(
     () => (result && result.success ? result.issues : []),
@@ -123,29 +165,46 @@ function EditorPage() {
   );
   const safeCount = useMemo(() => issues.filter((issue) => issue.safe).length, [issues]);
 
+  /** Apply corrected text to whichever editor is active. */
+  const applyCorrectedText = useCallback(
+    (next: string, applied: number) => {
+      if (mode === "blocks") {
+        setBlockText(next);
+        setNotice(
+          `Applied ${applied} suggestion${applied === 1 ? "" : "s"}. Block formatting was reset to paragraphs. Run the check again.`,
+        );
+      } else {
+        setEditorText(next);
+        setNotice(
+          `Applied ${applied} suggestion${applied === 1 ? "" : "s"}. Run the check again.`,
+        );
+      }
+      setResult(null);
+      setStatus("idle");
+    },
+    [mode, setBlockText, setEditorText],
+  );
+
   const applyOne = useCallback(
     (issue: Issue) => {
       if (issue.suggestions.length === 0) return;
-      const next = text.slice(0, issue.start) + issue.suggestions[0] + text.slice(issue.end);
-      setEditorText(next);
-      setResult(null);
-      setStatus("idle");
-      setNotice("Suggestion applied. Run the check again to refresh the findings.");
+      const next =
+        effectiveText.slice(0, issue.start) +
+        issue.suggestions[0] +
+        effectiveText.slice(issue.end);
+      applyCorrectedText(next, 1);
     },
-    [setEditorText, text],
+    [applyCorrectedText, effectiveText],
   );
 
   const applyAllSafe = useCallback(() => {
-    const { text: next, applied } = applySafeSuggestions(text, issues);
+    const { text: next, applied } = applySafeSuggestions(effectiveText, issues);
     if (applied === 0) {
       setNotice("There are no unambiguous suggestions to apply.");
       return;
     }
-    setEditorText(next);
-    setResult(null);
-    setStatus("idle");
-    setNotice(`Applied ${applied} suggestion${applied === 1 ? "" : "s"}. Run the check again.`);
-  }, [issues, setEditorText, text]);
+    applyCorrectedText(next, applied);
+  }, [applyCorrectedText, effectiveText, issues]);
 
   const busy = status === "loading-engine" || status === "checking";
 
@@ -160,22 +219,63 @@ function EditorPage() {
           Nothing you type here is uploaded, stored or logged.
         </WaCallout>
 
+        <WaButtonGroup label="Editor mode">
+          <WaButton
+            size="small"
+            variant={mode === "plain" ? "brand" : "neutral"}
+            appearance={mode === "plain" ? "accent" : "outlined"}
+            onClick={() => switchMode("plain")}
+          >
+            <WaIcon slot="start" name="font" />
+            Plain text
+          </WaButton>
+          <WaButton
+            size="small"
+            variant={mode === "blocks" ? "brand" : "neutral"}
+            appearance={mode === "blocks" ? "accent" : "outlined"}
+            onClick={() => switchMode("blocks")}
+          >
+            <WaIcon slot="start" name="cubes" />
+            Block editor
+          </WaButton>
+        </WaButtonGroup>
+
         <div className="app-editor-grid">
           <WaCard>
             <div className="wa-stack wa-gap-s">
-              <WaTextarea
-                ref={textareaRef}
-                className="app-textarea"
-                label="Your text"
-                placeholder="Paste or write English text here…"
-                rows={16}
-                resize="vertical"
-                value={text}
-              />
+              {mode === "plain" ? (
+                <WaTextarea
+                  ref={textareaRef}
+                  className="app-textarea"
+                  label="Your text"
+                  placeholder="Paste or write English text here…"
+                  rows={16}
+                  resize="vertical"
+                  value={text}
+                />
+              ) : (
+                <Suspense
+                  fallback={
+                    <div className="wa-cluster wa-gap-xs wa-align-items-center">
+                      <WaSpinner />
+                      <span>Loading the block editor…</span>
+                    </div>
+                  }
+                >
+                  <LazyBlockEditor
+                    key={blockKey}
+                    initialText={blockSeed}
+                    onBlocksChange={setBlocks}
+                    onError={() =>
+                      setNotice("The block editor could not be loaded. Switch back to plain text.")
+                    }
+                  />
+                </Suspense>
+              )}
 
               <div className="wa-split wa-align-items-center">
                 <small>
-                  {text.length.toLocaleString()} / {maxChars.toLocaleString()} characters
+                  {effectiveText.length.toLocaleString()} / {maxChars.toLocaleString()} characters
                 </small>
                 {overLimit ? <WaBadge variant="danger">Over the limit</WaBadge> : null}
               </div>
@@ -195,9 +295,15 @@ function EditorPage() {
                 <WaButton appearance="plain" disabled={busy} onClick={clearAll}>
                   Clear
                 </WaButton>
-                <WaButton appearance="plain" disabled={busy} onClick={() => setEditorText(SAMPLE)}>
-                  Use sample text
-                </WaButton>
+                {mode === "plain" ? (
+                  <WaButton appearance="plain" disabled={busy} onClick={() => setEditorText(SAMPLE)}>
+                    Use sample text
+                  </WaButton>
+                ) : (
+                  <WaButton appearance="plain" disabled={busy} onClick={() => setBlockText(SAMPLE)}>
+                    Use sample text
+                  </WaButton>
+                )}
               </div>
             </div>
           </WaCard>

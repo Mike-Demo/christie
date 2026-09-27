@@ -51,6 +51,8 @@ function HealthPage() {
       if (error) throw error;
       return Boolean(data);
     },
+    { property: "og:image", content: "https://ceoowl.com/og-image.png" },
+    { name: "twitter:image", content: "https://ceoowl.com/og-image.png" },
   });
 
   const summaryQuery = useQuery({

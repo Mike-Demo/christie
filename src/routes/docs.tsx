@@ -18,6 +18,8 @@ export const Route = createFileRoute("/docs")({
         property: "og:description",
         content: "Endpoint, client configuration, tool contract, limits and error responses.",
       },
+      { property: "og:image", content: "https://ceoowl.com/og-image.png" },
+      { name: "twitter:image", content: "https://ceoowl.com/og-image.png" },
     ],
   }),
   component: DocsPage,

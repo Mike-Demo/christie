@@ -81,7 +81,7 @@ are no pasted API keys.
 ```json
 {
   "mcpServers": {
-    "christie": {
+    "ceo-owl": {
       "type": "http",
       "url": "https://<your-domain>/mcp"
     }

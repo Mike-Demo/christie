@@ -37,21 +37,21 @@ describe("blocksToPlainText", () => {
 
 describe("plainTextToHtml", () => {
   test("converts paragraphs separated by blank lines", () => {
-    expect(plainTextToHtml("One.\n\nTwo.")).toBe("<p>One.</p>\n<p>Two.</p>");
+    expect(plainTextToHtml("One.\n\nTwo.")).toBe("<!-- wp:paragraph --><p>One.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Two.</p><!-- /wp:paragraph -->");
   });
 
   test("converts single newlines within a chunk to line breaks", () => {
-    expect(plainTextToHtml("One.\nTwo.")).toBe("<p>One.<br>Two.</p>");
+    expect(plainTextToHtml("One.\nTwo.")).toBe("<!-- wp:paragraph --><p>One.<br>Two.</p><!-- /wp:paragraph -->");
   });
 
   test("escapes HTML in the text", () => {
-    expect(plainTextToHtml("a <b> & \"c\"")).toBe("<p>a &lt;b&gt; &amp; &quot;c&quot;</p>");
+    expect(plainTextToHtml("a <b> & \"c\"")).toBe("<!-- wp:paragraph --><p>a &lt;b&gt; &amp; &quot;c&quot;</p><!-- /wp:paragraph -->");
   });
 
   test("round-trips through blocksToPlainText shape", () => {
     const text = "First paragraph.\n\nA heading";
     const html = plainTextToHtml(text);
-    expect(html).toBe("<p>First paragraph.</p>\n<p>A heading</p>");
+    expect(html).toBe("<!-- wp:paragraph --><p>First paragraph.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>A heading</p><!-- /wp:paragraph -->");
   });
 });
 

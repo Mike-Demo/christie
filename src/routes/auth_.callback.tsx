@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { WaSpinner } from "@/design-system/font-awsome-web-awesome-171158";
 import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/auth/callback")({
+export const Route = createFileRoute("/auth_/callback")({
   ssr: false,
   component: AuthCallback,
 });

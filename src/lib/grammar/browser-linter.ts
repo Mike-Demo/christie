@@ -8,7 +8,8 @@
  * rendering.
  */
 
-import wasmUrl from "harper.js/dist/harper_wasm_bg.wasm?url";
+// harper.js's package "exports" map hides the .wasm file, so reference it by path.
+import wasmUrl from "../../../node_modules/harper.js/dist/harper_wasm_bg.wasm?url";
 
 import {
   grammarFailure,

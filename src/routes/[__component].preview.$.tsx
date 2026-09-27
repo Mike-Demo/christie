@@ -107,8 +107,16 @@ function PreviewDocument({ previewPath }: { previewPath: string }): ReactElement
   }, [previewPath]);
 
   useEffect(() => {
+    const trustedOrigin = (() => {
+      try {
+        return document.referrer ? new URL(document.referrer).origin : null;
+      } catch {
+        return null;
+      }
+    })();
     const onMessage = (event: MessageEvent) => {
       if (event.source !== parent) return;
+      if (!trustedOrigin || event.origin !== trustedOrigin) return;
       const schemaProps = (entryRef.current as { schemaProps?: SchemaProp[] } | null)?.schemaProps ?? [];
       const props = specimenPropsFromMessage(event.data, schemaProps);
       if (!props) return;
@@ -130,10 +138,10 @@ function PreviewDocument({ previewPath }: { previewPath: string }): ReactElement
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "2rem",
+        padding: "var(--wa-space-2xl)",
         boxSizing: "border-box",
         overflow: "hidden",
-        background: "#fff",
+        background: "var(--wa-color-surface-default)",
         zIndex: 2147483647,
       }}
     >

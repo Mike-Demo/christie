@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "sdk_version": "3.0.4",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://ypcnttgpebzaszeytrzv.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "christie",
+      "version": "0.1.0",
+      "title": "Christie"
+    },
+    "tools": [
+      {
+        "name": "check_grammar",
+        "title": "Check grammar",
+        "description": "Check English text for grammar, spelling, punctuation and style problems using the Harper engine. Returns structured findings with character offsets and suggested replacements. The submitted text is processed in memory only and is never stored or logged.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "The English text to check. Required."
+            },
+            "language": {
+              "description": "Language code. Only 'en' is supported; anything else is rejected.",
+              "type": "string"
+            },
+            "include_suggestions": {
+              "description": "Include suggested replacements for each finding. Defaults to true.",
+              "type": "boolean"
+            },
+            "include_rule_ids": {
+              "description": "Include the Harper rule identifier for each finding. Defaults to true.",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "additionalProperties": false
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+# CEO Owl
+
+> Private English grammar checking. The web editor runs the Harper engine on your own device, so checked text never leaves the browser. AI clients connect to the same checker over a signed-in MCP connection. English only. Submitted text is processed in memory and never stored or logged.
+
+## MCP server
+
+- Endpoint: https://ceoowl.com/mcp (Streamable HTTP)
+- Authentication: OAuth (Supabase) — sign in once, then connect. See https://ceoowl.com/docs for client configuration.
+- Tool: `check_grammar` — finds grammar, spelling, punctuation and style problems in English text. Returns findings with character offsets and suggested replacements.
+
+Example tool call:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "check_grammar",
+    "arguments": {
+      "text": "<your english text>",
+      "language": "en",
+      "include_suggestions": true,
+      "include_rule_ids": true
+    }
+  }
+}
+```
+
+## Pages
+
+- [Editor](https://ceoowl.com/editor): the privacy-first grammar checker
+- [Documentation](https://ceoowl.com/docs): endpoint, client configuration, tool contract, limits and error responses
+- [Agent card](https://ceoowl.com/.well-known/agent.json)
+- [Privacy](https://ceoowl.com/privacy) · [Terms](https://ceoowl.com/terms) · [Licenses](https://ceoowl.com/licenses)

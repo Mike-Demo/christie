@@ -6,7 +6,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { componentTagger } from "lovable-tagger";
 import { mcpPlugin } from "@lovable.dev/mcp-js/stacks/tanstack/vite";
-import { mockupPreviewPlugin } from "./mockupPreviewPlugin";
+import { mockupPreviewPlugin } from "./mockupPreviewPlugin.ts";
 
 export default defineConfig(({ command, mode }) => {
   // Cloudflare Workers plugin only on build (produces the worker output);

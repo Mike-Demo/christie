@@ -7,6 +7,17 @@ import { describe, expect, test } from "bun:test";
 
 import { logEvent, setLogSink, type LoggableEvent } from "../src/lib/grammar/log";
 
+function columnNames(sql: string, table: string): string[] {
+  const start = sql.indexOf(`CREATE TABLE ${table}`);
+  const body = sql.slice(sql.indexOf("(", start) + 1, sql.indexOf(");", start));
+  return body
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0 && !/^(primary|unique|foreign|constraint|check)\b/i.test(line))
+    .map((line) => line.split(/\s+/)[0]?.replace(/[",]/g, "") ?? "")
+    .filter((name) => name.length > 0);
+}
+
 const SECRET = "Confidential paragraph about acquisition plans.";
 
 describe("logging", () => {

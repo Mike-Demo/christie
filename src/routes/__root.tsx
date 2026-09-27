@@ -21,18 +21,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CEO Owl — private English grammar checking" },
-      {
-        name: "description",
-        content:
-          "A privacy-first English grammar checker. Check writing in your browser without uploading it, or connect an AI client to the grammar tool.",
-      },
-      { property: "og:title", content: "CEO Owl — private English grammar checking" },
-      {
-        property: "og:description",
-        content:
-          "A privacy-first English grammar checker. Check writing in your browser without uploading it, or connect an AI client to the grammar tool.",
-      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

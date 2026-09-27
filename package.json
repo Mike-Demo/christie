@@ -12,6 +12,9 @@
     "test": "bun test tests/",
     "harper-service": "bun run services/harper-service/server.ts"
   },
+  "overrides": {
+    "@wordpress/sync": "1.24.0"
+  },
   "dependencies": {
     "@automattic/isolated-block-editor": "2.30.0",
     "@babel/helper-compilation-targets": "^8.0.6",

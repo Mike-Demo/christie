@@ -8,6 +8,8 @@ import {
   WaIcon,
 } from "@/design-system/font-awsome-web-awesome-171158";
 
+import logoAsset from "@/assets/logo.png.asset.json";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [

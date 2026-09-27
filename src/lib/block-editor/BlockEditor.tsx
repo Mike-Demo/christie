@@ -52,8 +52,7 @@ export default function BlockEditor({ initialText, onBlocksChange, onError }: Bl
   );
 
   const onLoad = useCallback(
-    (_parse: unknown, rawHandler: (html: string) => EditorBlock[]) =>
-      rawHandler(plainTextToHtml(initialText)),
+    (parse: (html: string) => EditorBlock[]) => parse(plainTextToHtml(initialText)),
     [initialText],
   );
 

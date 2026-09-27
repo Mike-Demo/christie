@@ -61,12 +61,15 @@ function escapeHtml(text: string): string {
     .replace(/"/g, "&quot;");
 }
 
-/** Convert plain text to the HTML the block editor's raw handler understands. */
+/** Convert plain text to block-delimited HTML the editor's parse function understands. */
 export function plainTextToHtml(text: string): string {
   return text
     .split(/\n{2,}/)
     .map((chunk) => chunk.trim())
     .filter((chunk) => chunk.length > 0)
-    .map((chunk) => `<p>${escapeHtml(chunk).replace(/\n/g, "<br>")}</p>`)
+    .map(
+      (chunk) =>
+        `<!-- wp:paragraph --><p>${escapeHtml(chunk).replace(/\n/g, "<br>")}</p><!-- /wp:paragraph -->`,
+    )
     .join("\n");
 }

@@ -32,6 +32,8 @@ export const Route = createFileRoute("/auth")({
       },
       { property: "og:title", content: "Sign in — CEO Owl" },
       { property: "og:description", content: "Sign in to connect an AI client." },
+      { property: "og:image", content: "https://ceoowl.com/og-image.png" },
+      { name: "twitter:image", content: "https://ceoowl.com/og-image.png" },
     ],
   }),
   component: AuthPage,

@@ -9,6 +9,8 @@ import {
   WebAwesomeLoader,
 } from "@/design-system/font-awsome-web-awesome-171158";
 
+import logoAsset from "@/assets/logo.png.asset.json";
+
 const NAV_LINKS = [
   { to: "/editor", label: "Editor", icon: "pen-to-square" },
   { to: "/connect", label: "Connect AI client", icon: "plug" },

@@ -53,6 +53,62 @@ A privacy-first English grammar checker with two front doors: a browser editor t
 - Design system deviation: your spec named shadcn/ui; per your answer the UI uses the attached Web Awesome components and tokens throughout.
 - Deviation from spec: temporary 24-hour bearer keys, the `api_keys` table, and key-generation rate limits are dropped in favour of sign-in based access. Revocation becomes "disconnect this client".
 
+## Locked specifics
+
+**1. Response contract** (one shared TypeScript type in `src/lib/grammar/contract.ts`, used by editor and MCP; `contract_version: "1"`)
+
+```text
+GrammarResult {
+  contract_version: "1"
+  success: true
+  language: "en"
+  document_length: number        // UTF-16 code units, same unit as start/end
+  issue_count: number            // === issues.length
+  issues: Issue[]                // sorted by start, then end, then rule_id
+  processing_ms: number          // integer
+}
+Issue {
+  id: string                     // stable: sha-256 of `${rule_id ?? ""}:${start}:${end}`, first 12 hex chars
+  rule_id: string | null         // null only if Harper gives no rule name
+  category: string               // Harper lint kind, lower-case; "other" if absent
+  message: string
+  start: number                  // inclusive
+  end: number                    // exclusive
+  original_text: string          // returned to the caller only, never stored
+  suggestions: string[]          // [] when none or include_suggestions=false
+  safe: boolean                  // true only when exactly one replacement suggestion exists
+}
+GrammarError { success: false, error: { code: "invalid_input" | "unsupported_language" | "too_large" | "rate_limited" | "unauthorized" | "timeout" | "internal", message: string, retry_after_s: number | null } }
+```
+`rule_id` is omitted (null) when `include_rule_ids=false`. No `corrected_text` in v1. "Apply all safe suggestions" applies only `safe: true` issues, right-to-left, skipping overlaps.
+
+**2. OAuth lifecycle**
+- Tokens are issued and refreshed by the managed Cloud auth server; the app never stores tokens.
+- Access tokens are short-lived (auth server default, about 1 hour); clients refresh with their refresh token. Every MCP request re-verifies the token signature, issuer, expiry and client claim.
+- A "connected client" is an approved OAuth grant (user + client) held by the auth server, not an app table. The Connect page lists grants and "Disconnect" revokes the grant, which stops refreshes; an already issued access token keeps working until it expires (up to about 1 hour). This limit is stated on the page.
+- If the auth server does not expose grant listing/revocation to the app, the Connect page falls back to "Sign out everywhere" (ends all sessions) and this is reported to you as a limitation.
+
+**3. Rate limiting**
+- Key: authenticated user id. Window: fixed one-hour window (UTC hour bucket).
+- Store: a `rate_limits` table (user_id, window_start, count) updated by one atomic database function that increments and returns the new count.
+- Limits: `MAX_CHARS_PER_REQUEST` (default 10000), `CHECKS_PER_HOUR` (default 60), `REQUEST_TIMEOUT_MS` (default 10000), from environment with defaults.
+- Fail-closed: if the limit check errors, the request is refused with `internal` and no grammar check runs.
+- Over limit: `rate_limited` with `retry_after_s` = seconds until the next hour.
+
+**4. Logging policy**
+- Allowlist only. A single `logEvent()` helper accepts: event name, user id, operation, character count, success, latency, error code. Any other field is dropped.
+- Never logged: text, fragments, suggestions, messages derived from text, headers, tokens, IPs, raw error objects from Harper.
+- Errors are caught at the tool boundary and reduced to a fixed error code before logging or returning.
+- Tests feed a unique marker string through success, validation-failure, oversize, timeout and thrown-exception paths, then assert the marker never appears in captured console output or `usage_events` / `rate_limits` rows.
+
+**5. Server-side Harper fallback criteria**
+Server Harper is accepted only if all pass on a production build in the edge runtime:
+- `harper.js` loads and initialises without a bundling or WebAssembly error.
+- A fixed 5-sentence fixture returns the same issues (rule, start, end) as the browser run.
+- Cold initialisation under 3 seconds and a 10,000-character check under 2 seconds.
+- Output bundle stays within the hosting size limit.
+Any failure triggers the fallback: `check_grammar` calls a dedicated Harper service at `HARPER_SERVICE_URL` (source and deployment config included), and you are told which path shipped.
+
 ## Sequence
 
 1. Enable Lovable Cloud; confirm Harper runs in the browser and test whether it runs in the server runtime.

@@ -37,7 +37,7 @@ describe("blocksToPlainText", () => {
 
 describe("plainTextToHtml", () => {
   test("converts paragraphs separated by blank lines", () => {
-    expect(plainTextToHtml("One.\n\nTwo.")).toBe("<p>One.</p><p>Two.</p>");
+    expect(plainTextToHtml("One.\n\nTwo.")).toBe("<p>One.</p>\n<p>Two.</p>");
   });
 
   test("converts single newlines within a chunk to line breaks", () => {
@@ -51,7 +51,7 @@ describe("plainTextToHtml", () => {
   test("round-trips through blocksToPlainText shape", () => {
     const text = "First paragraph.\n\nA heading";
     const html = plainTextToHtml(text);
-    expect(html).toBe("<p>First paragraph.</p><p>A heading</p>");
+    expect(html).toBe("<p>First paragraph.</p>\n<p>A heading</p>");
   });
 });
 

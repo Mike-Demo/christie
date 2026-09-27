@@ -100,9 +100,34 @@ function EditorPage() {
     if (element) element.value = next;
   }, []);
 
+  /** Replace the block editor's content by re-seeding and remounting it. */
+  const setBlockText = useCallback((next: string) => {
+    setBlockSeed(next);
+    setBlocks([]);
+    setBlockKey((key) => key + 1);
+  }, []);
+
+  const switchMode = useCallback(
+    (next: EditorMode) => {
+      if (next === mode) return;
+      if (next === "blocks") {
+        setBlockSeed(text);
+        setBlocks([]);
+        setBlockKey((key) => key + 1);
+      } else {
+        setEditorText(blocksToPlainText(blocks));
+      }
+      setResult(null);
+      setStatus("idle");
+      setNotice(null);
+      setMode(next);
+    },
+    [blocks, mode, setEditorText, text],
+  );
+
   const runCheck = useCallback(async () => {
     setNotice(null);
-    if (text.trim().length === 0) {
+    if (effectiveText.trim().length === 0) {
       setResult(null);
       setStatus("idle");
       setNotice("Type or paste some text first.");
@@ -113,7 +138,7 @@ function EditorPage() {
     try {
       const { checkGrammarInBrowser } = await import("@/lib/grammar/browser-linter");
       setStatus("checking");
-      const next = await checkGrammarInBrowser({ text, maxChars });
+      const next = await checkGrammarInBrowser({ text: effectiveText, maxChars });
       setResult(next);
       setStatus(next.success ? "done" : "error");
     } catch {
@@ -121,14 +146,18 @@ function EditorPage() {
       setStatus("error");
       setNotice("The check could not be completed. Please try again.");
     }
-  }, [maxChars, text]);
+  }, [effectiveText, maxChars]);
 
   const clearAll = useCallback(() => {
-    setEditorText("");
+    if (mode === "blocks") {
+      setBlockText("");
+    } else {
+      setEditorText("");
+    }
     setResult(null);
     setStatus("idle");
     setNotice(null);
-  }, [setEditorText]);
+  }, [mode, setBlockText, setEditorText]);
 
   const issues: Issue[] = useMemo(
     () => (result && result.success ? result.issues : []),
@@ -136,29 +165,46 @@ function EditorPage() {
   );
   const safeCount = useMemo(() => issues.filter((issue) => issue.safe).length, [issues]);
 
+  /** Apply corrected text to whichever editor is active. */
+  const applyCorrectedText = useCallback(
+    (next: string, applied: number) => {
+      if (mode === "blocks") {
+        setBlockText(next);
+        setNotice(
+          `Applied ${applied} suggestion${applied === 1 ? "" : "s"}. Block formatting was reset to paragraphs. Run the check again.`,
+        );
+      } else {
+        setEditorText(next);
+        setNotice(
+          `Applied ${applied} suggestion${applied === 1 ? "" : "s"}. Run the check again.`,
+        );
+      }
+      setResult(null);
+      setStatus("idle");
+    },
+    [mode, setBlockText, setEditorText],
+  );
+
   const applyOne = useCallback(
     (issue: Issue) => {
       if (issue.suggestions.length === 0) return;
-      const next = text.slice(0, issue.start) + issue.suggestions[0] + text.slice(issue.end);
-      setEditorText(next);
-      setResult(null);
-      setStatus("idle");
-      setNotice("Suggestion applied. Run the check again to refresh the findings.");
+      const next =
+        effectiveText.slice(0, issue.start) +
+        issue.suggestions[0] +
+        effectiveText.slice(issue.end);
+      applyCorrectedText(next, 1);
     },
-    [setEditorText, text],
+    [applyCorrectedText, effectiveText],
   );
 
   const applyAllSafe = useCallback(() => {
-    const { text: next, applied } = applySafeSuggestions(text, issues);
+    const { text: next, applied } = applySafeSuggestions(effectiveText, issues);
     if (applied === 0) {
       setNotice("There are no unambiguous suggestions to apply.");
       return;
     }
-    setEditorText(next);
-    setResult(null);
-    setStatus("idle");
-    setNotice(`Applied ${applied} suggestion${applied === 1 ? "" : "s"}. Run the check again.`);
-  }, [issues, setEditorText, text]);
+    applyCorrectedText(next, applied);
+  }, [applyCorrectedText, effectiveText, issues]);
 
   const busy = status === "loading-engine" || status === "checking";
 

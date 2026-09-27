@@ -28,7 +28,7 @@ export function AppShell({ children }: AppShellProps) {
       <WaPage className="wa-cloak">
         <header slot="header" className="app-band wa-split wa-align-items-center">
           <Link to="/" className="app-brand wa-cluster wa-gap-xs wa-align-items-center">
-            <WaIcon name="feather-pointed" />
+            <img src={logoAsset.url} alt="" className="app-brand-mark" />
             <strong>Harper Grammar</strong>
           </Link>
           <nav className="wa-cluster wa-gap-2xs app-desktop-nav" aria-label="Quick links">

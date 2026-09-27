@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { AppShell } from "@/components/AppShell";
 import {
   WaBadge,
   WaButton,
+  WaButtonGroup,
   WaCallout,
   WaCard,
   WaIcon,
@@ -14,6 +15,10 @@ import {
 } from "@/design-system/font-awsome-web-awesome-171158";
 import { DEFAULT_LIMITS } from "@/lib/grammar/config";
 import { applySafeSuggestions, type GrammarResult, type Issue } from "@/lib/grammar/contract";
+import { blocksToPlainText, type EditorBlock } from "@/lib/block-editor/text";
+
+// Loaded on demand only: the Gutenberg bundle is large and browser-only.
+const LazyBlockEditor = lazy(() => import("@/lib/block-editor/BlockEditor"));
 
 export const Route = createFileRoute("/editor")({
   head: () => ({

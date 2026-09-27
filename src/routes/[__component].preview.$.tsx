@@ -138,10 +138,10 @@ function PreviewDocument({ previewPath }: { previewPath: string }): ReactElement
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "2rem",
+        padding: "var(--wa-space-2xl)",
         boxSizing: "border-box",
         overflow: "hidden",
-        background: "#fff",
+        background: "var(--wa-color-surface-default)",
         zIndex: 2147483647,
       }}
     >

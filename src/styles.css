@@ -163,3 +163,12 @@ wa-page[view="desktop"] .app-editor-grid {
   min-height: 100%;
   background-color: var(--wa-color-surface-default);
 }
+
+/* Block insertion is not used: this editor is text-only, and the inserter
+   popover has no pattern/block registry to load in this isolated setup. */
+.app-block-editor .block-editor-inserter,
+.app-block-editor .block-editor-block-list__empty-block-inserter,
+.app-block-editor .block-editor-block-list__insertion-point-inserter,
+.app-block-editor .editor-document-tools__inserter-toggle {
+  display: none;
+}

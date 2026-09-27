@@ -1,8 +1,16 @@
-# Roadmap — Harper Grammar Checker MVP + Remote MCP
+# Roadmap
 
-1. [ ] Enable Lovable Cloud; verify Harper in browser + server runtime (fallback: HARPER_SERVICE_URL)
-2. [ ] Migration: `usage_events`, `rate_limits` + GRANTs + RLS
-3. [ ] Shared grammar contract + Harper adapter (`src/lib/grammar/`)
-4. [ ] Editor page, landing, privacy, terms/attribution
-5. [ ] MCP server (`/mcp`), OAuth activation, consent route, connect page, docs page
-6. [ ] Health dashboard (admin-only), tests, README + per-route metadata
+- [x] 1. Verify Harper in the browser and on the server runtime
+      (browser: works; edge server: WASM too large → companion service)
+- [x] 2. Migration for `usage_events`, `rate_limits`, `user_roles` and RLS
+- [x] 3. Shared grammar contract, normalization, validation, config, logging
+- [x] 4. Editor, landing page, privacy, terms, licenses
+- [x] 5. MCP server, OAuth sign-in, consent screen, connect and docs pages
+- [x] 6. Health dashboard, tests, README, companion service + deploy config
+
+## Open (needs input or deployment)
+
+- [ ] Deploy the companion grammar service and set `HARPER_SERVICE_URL`
+      (blocked on where you want it hosted)
+- [ ] Grant an `admin` role so the health dashboard is reachable
+- [ ] Publish the app so the MCP endpoint is live for external clients

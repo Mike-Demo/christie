@@ -8,7 +8,9 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "bun test tests/",
+    "harper-service": "bun run services/harper-service/server.ts"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",

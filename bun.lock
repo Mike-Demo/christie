@@ -104,6 +104,7 @@
     "@wordpress/url": "4.24.0",
     "@wordpress/viewport": "6.24.0",
     "@wordpress/warning": "3.24.0",
+    "@wordpress/widgets": "4.24.0",
     "@wordpress/wordcount": "4.24.0",
   },
   "packages": {
@@ -777,7 +778,7 @@
 
     "@wordpress/warning": ["@wordpress/warning@3.24.0", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@wordpress/warning/-/warning-3.24.0.tgz", {}, "sha512-gDlTyyCpjGQi9VAJKkaigLvQdp3SOM2GT/RjbGzRFRWab7N9U7LDV1HViBw99QRBI/PNakJSRAWa8DponDtinA=="],
 
-    "@wordpress/widgets": ["@wordpress/widgets@4.56.0", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@wordpress/widgets/-/widgets-4.56.0.tgz", { "dependencies": { "@wordpress/api-fetch": "^7.56.0", "@wordpress/base-styles": "^13.2.0", "@wordpress/block-editor": "^18.0.0", "@wordpress/blocks": "^16.1.0", "@wordpress/components": "^41.0.0", "@wordpress/compose": "^8.9.0", "@wordpress/core-data": "^8.1.0", "@wordpress/data": "^10.56.0", "@wordpress/element": "^8.8.0", "@wordpress/i18n": "^6.29.0", "@wordpress/icons": "^17.0.0", "@wordpress/notices": "^5.56.0", "clsx": "^2.1.1" }, "peerDependencies": { "react": "^18 || ^19", "react-dom": "^18 || ^19" } }, "sha512-ccWj1LiZlfc2lgfE87qmQSHPTdZyZFqdCJCHUgi4XVq6mFeJuouRWuLAUqmiPd1/DxK9ySfcRtnpbY2zxDbh9g=="],
+    "@wordpress/widgets": ["@wordpress/widgets@4.24.0", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@wordpress/widgets/-/widgets-4.24.0.tgz", { "dependencies": { "@babel/runtime": "7.25.7", "@wordpress/api-fetch": "^7.24.0", "@wordpress/block-editor": "^14.19.0", "@wordpress/blocks": "^14.13.0", "@wordpress/components": "^29.10.0", "@wordpress/compose": "^7.24.0", "@wordpress/core-data": "^7.24.0", "@wordpress/data": "^10.24.0", "@wordpress/element": "^6.24.0", "@wordpress/i18n": "^5.24.0", "@wordpress/icons": "^10.24.0", "@wordpress/notices": "^5.24.0", "clsx": "^2.1.1" }, "peerDependencies": { "react": "^18.0.0", "react-dom": "^18.0.0" } }, "sha512-8L61BXr/cROTocEby9JuqRLKuRaPx6QZEVSpZxlP+wcIe2vuSxI0VSXigNZ1sZVI1sgTzO1apQYxlnzJYa4CSQ=="],
 
     "@wordpress/wordcount": ["@wordpress/wordcount@4.24.0", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@wordpress/wordcount/-/wordcount-4.24.0.tgz", { "dependencies": { "@babel/runtime": "7.25.7" } }, "sha512-q8doxQ7Sof+c4om9NxdsZ5jwF0nBPxd47cgnuYxWNfytt89Osr1P9oPZr4D8W+ZN8MV5VvtBhsGONu1ZvkwwRQ=="],
 

@@ -219,22 +219,63 @@ function EditorPage() {
           Nothing you type here is uploaded, stored or logged.
         </WaCallout>
 
+        <WaButtonGroup label="Editor mode">
+          <WaButton
+            size="small"
+            variant={mode === "plain" ? "brand" : "neutral"}
+            appearance={mode === "plain" ? "accent" : "outlined"}
+            onClick={() => switchMode("plain")}
+          >
+            <WaIcon slot="start" name="font" />
+            Plain text
+          </WaButton>
+          <WaButton
+            size="small"
+            variant={mode === "blocks" ? "brand" : "neutral"}
+            appearance={mode === "blocks" ? "accent" : "outlined"}
+            onClick={() => switchMode("blocks")}
+          >
+            <WaIcon slot="start" name="cubes" />
+            Block editor
+          </WaButton>
+        </WaButtonGroup>
+
         <div className="app-editor-grid">
           <WaCard>
             <div className="wa-stack wa-gap-s">
-              <WaTextarea
-                ref={textareaRef}
-                className="app-textarea"
-                label="Your text"
-                placeholder="Paste or write English text here…"
-                rows={16}
-                resize="vertical"
-                value={text}
-              />
+              {mode === "plain" ? (
+                <WaTextarea
+                  ref={textareaRef}
+                  className="app-textarea"
+                  label="Your text"
+                  placeholder="Paste or write English text here…"
+                  rows={16}
+                  resize="vertical"
+                  value={text}
+                />
+              ) : (
+                <Suspense
+                  fallback={
+                    <div className="wa-cluster wa-gap-xs wa-align-items-center">
+                      <WaSpinner />
+                      <span>Loading the block editor…</span>
+                    </div>
+                  }
+                >
+                  <LazyBlockEditor
+                    key={blockKey}
+                    initialText={blockSeed}
+                    onBlocksChange={setBlocks}
+                    onError={() =>
+                      setNotice("The block editor could not be loaded. Switch back to plain text.")
+                    }
+                  />
+                </Suspense>
+              )}
 
               <div className="wa-split wa-align-items-center">
                 <small>
-                  {text.length.toLocaleString()} / {maxChars.toLocaleString()} characters
+                  {effectiveText.length.toLocaleString()} / {maxChars.toLocaleString()} characters
                 </small>
                 {overLimit ? <WaBadge variant="danger">Over the limit</WaBadge> : null}
               </div>
@@ -254,9 +295,15 @@ function EditorPage() {
                 <WaButton appearance="plain" disabled={busy} onClick={clearAll}>
                   Clear
                 </WaButton>
-                <WaButton appearance="plain" disabled={busy} onClick={() => setEditorText(SAMPLE)}>
-                  Use sample text
-                </WaButton>
+                {mode === "plain" ? (
+                  <WaButton appearance="plain" disabled={busy} onClick={() => setEditorText(SAMPLE)}>
+                    Use sample text
+                  </WaButton>
+                ) : (
+                  <WaButton appearance="plain" disabled={busy} onClick={() => setBlockText(SAMPLE)}>
+                    Use sample text
+                  </WaButton>
+                )}
               </div>
             </div>
           </WaCard>

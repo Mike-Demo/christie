@@ -11,10 +11,47 @@ import { supabaseForUser } from "../supabase";
 
 const OPERATION = "check_grammar";
 
-function toResult(result: GrammarResult) {
+// Mapped explicitly to plain JSON shapes: named interfaces do not satisfy the
+// SDK's recursive JSON type for `structuredContent`.
+function toJson(result: GrammarResult) {
+  if (!result.success) {
+    return {
+      success: false,
+      contract_version: result.contract_version,
+      error: {
+        code: result.error.code,
+        message: result.error.message,
+        retry_after_s: result.error.retry_after_s,
+      },
+    };
+  }
+
   return {
-    content: [{ type: "text" as const, text: JSON.stringify(result) }],
-    structuredContent: result as unknown as Record<string, unknown>,
+    success: true,
+    contract_version: result.contract_version,
+    language: result.language,
+    document_length: result.document_length,
+    issue_count: result.issue_count,
+    processing_ms: result.processing_ms,
+    issues: result.issues.map((issue) => ({
+      id: issue.id,
+      rule_id: issue.rule_id,
+      category: issue.category,
+      message: issue.message,
+      start: issue.start,
+      end: issue.end,
+      original_text: issue.original_text,
+      suggestions: issue.suggestions.map((suggestion) => suggestion),
+      safe: issue.safe,
+    })),
+  };
+}
+
+function toResult(result: GrammarResult) {
+  const json = toJson(result);
+  return {
+    content: [{ type: "text" as const, text: JSON.stringify(json) }],
+    structuredContent: json,
     ...(result.success ? {} : { isError: true as const }),
   };
 }

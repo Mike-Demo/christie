@@ -8,6 +8,6 @@ disclosures = [
 
 [upstream]
 services = [
-    { domain = "www.spacefast.com", service_type = "shared-hosting" },
+    { domain = "www.lovable.dev", service_type = "shared-hosting" },
     { domain = "www.cloudflare.com", service_type = "content-delivery-network" },
 ]

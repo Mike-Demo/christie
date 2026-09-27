@@ -13,6 +13,8 @@ submits is ever stored or used for training.
 
 ---
 
+The editor has two modes: plain text (default) and an optional block editor powered by Gutenberg via [@automattic/isolated-block-editor](https://github.com/Automattic/isolated-block-editor) (GPL-2.0). Block mode is text-blocks only (paragraph, heading, list, quote), loads on demand, keeps content in memory, and runs the same in-browser Harper check on the extracted text. Applying suggestions rebuilds blocks from the corrected text, resetting formatting to paragraphs. CEO Owl is not endorsed by or affiliated with Automattic.
+
 ## Local development
 
 ```bash

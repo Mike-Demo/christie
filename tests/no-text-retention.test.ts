@@ -46,9 +46,8 @@ describe("logging", () => {
     setLogSink(null);
 
     expect(captured).toHaveLength(1);
-    const serialized = JSON.stringify(captured[0]);
-    expect(serialized).not.toContain(SECRET);
-    expect(serialized).not.toContain("acquisition");
+    expect(lines[0]).not.toContain(SECRET);
+    expect(lines[0]).not.toContain("acquisition");
     expect(Object.keys(captured[0] ?? {}).sort()).toEqual([
       "character_count",
       "event",

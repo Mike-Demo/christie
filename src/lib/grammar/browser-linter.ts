@@ -8,7 +8,10 @@
  * rendering.
  */
 
-import wasmUrl from "harper.js/dist/harper_wasm_bg.wasm?url";
+// The ~16 MB engine binary is hosted as an external asset and fetched by URL.
+import harperWasmAsset from "@/assets/harper_wasm_bg.wasm.asset.json";
+
+const wasmUrl: string = harperWasmAsset.url;
 
 import {
   grammarFailure,

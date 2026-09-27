@@ -1,5 +1,8 @@
 {
   "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "eslint.config.js"],
+  // Optional, experimental design-system server renderer. It is not exported from
+  // the library barrel and its peer packages are intentionally not installed.
+  "exclude": ["src/design-system/*/webawesome/ssr/render.server.ts"],
   "compilerOptions": {
     "target": "ES2022",
     "jsx": "react-jsx",

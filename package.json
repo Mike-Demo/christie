@@ -13,6 +13,7 @@
     "harper-service": "bun run services/harper-service/server.ts"
   },
   "dependencies": {
+    "@babel/helper-compilation-targets": "^8.0.6",
     "@cloudflare/vite-plugin": "^1.60.2",
     "@lovable.dev/cloud-auth-js": "^1.1.2",
     "@lovable.dev/mcp-js": "^3.0.4",
@@ -31,6 +32,7 @@
     "react-dom": "^19.2.0",
     "recharts": "^2.15.4",
     "vite-tsconfig-paths": "^6.0.2",
+    "xmlbuilder2": "^4.0.3",
     "zod": "^4.6.5"
   },
   "devDependencies": {

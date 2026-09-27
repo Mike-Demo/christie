@@ -6,13 +6,13 @@ import { WaCallout, WaIcon } from "@/design-system/font-awsome-web-awesome-17115
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms & attribution — Harper Grammar" },
+      { title: "Terms & attribution — CEO Owl" },
       {
         name: "description",
         content:
           "Terms of use and open-source attribution. Grammar analysis is performed by Harper, licensed under Apache 2.0. Independent project, not endorsed by Automattic.",
       },
-      { property: "og:title", content: "Terms & attribution — Harper Grammar" },
+      { property: "og:title", content: "Terms & attribution — CEO Owl" },
       {
         property: "og:description",
         content:

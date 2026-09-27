@@ -80,7 +80,7 @@ function Consent() {
         <div className="wa-stack wa-gap-s">
           <h1>Connect {clientName} to your account</h1>
           <p>
-            This lets {clientName} use the Harper grammar checker as you. It can check text you
+            This lets {clientName} use the CEO Owl grammar checker as you. It can check text you
             send it, and nothing else — no other data in this app is exposed.
           </p>
           <ul>

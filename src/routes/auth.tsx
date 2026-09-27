@@ -25,12 +25,12 @@ export const Route = createFileRoute("/auth")({
   validateSearch: (search: Record<string, unknown>) => ({ next: safeNext(search['next']) }),
   head: () => ({
     meta: [
-      { title: "Sign in — Harper Grammar" },
+      { title: "Sign in — CEO Owl" },
       {
         name: "description",
-        content: "Sign in to connect an AI client to the Harper grammar checker.",
+        content: "Sign in to connect an AI client to the CEO Owl grammar checker.",
       },
-      { property: "og:title", content: "Sign in — Harper Grammar" },
+      { property: "og:title", content: "Sign in — CEO Owl" },
       { property: "og:description", content: "Sign in to connect an AI client." },
     ],
   }),

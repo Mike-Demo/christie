@@ -6,13 +6,13 @@ import { WaCallout, WaIcon } from "@/design-system/font-awsome-web-awesome-17115
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy — Harper Grammar" },
+      { title: "Privacy — CEO Owl" },
       {
         name: "description",
         content:
-          "What Harper Grammar does and does not keep: no submitted text, no fragments, no suggestions, no IP addresses. Only anonymous usage counts.",
+          "What CEO Owl does and does not keep: no submitted text, no fragments, no suggestions, no IP addresses. Only anonymous usage counts.",
       },
-      { property: "og:title", content: "Privacy — Harper Grammar" },
+      { property: "og:title", content: "Privacy — CEO Owl" },
       {
         property: "og:description",
         content: "No submitted text is stored or logged. Only anonymous usage counts are kept.",

@@ -15,12 +15,12 @@ export const Route = createFileRoute("/health")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Service health — Harper Grammar" },
+      { title: "Service health — CEO Owl" },
       {
         name: "description",
         content: "Anonymous usage counters for the grammar service. Administrators only.",
       },
-      { property: "og:title", content: "Service health — Harper Grammar" },
+      { property: "og:title", content: "Service health — CEO Owl" },
       { property: "og:description", content: "Anonymous usage counters. Administrators only." },
     ],
   }),

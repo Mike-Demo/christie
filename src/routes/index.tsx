@@ -13,13 +13,13 @@ import logoAsset from "@/assets/logo.png.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Harper Grammar — private English grammar checking" },
+      { title: "CEO Owl — private English grammar checking" },
       {
         name: "description",
         content:
           "Check English writing without uploading it. The editor runs the Harper engine on your own device, and AI clients can connect to the same checker over a signed-in connection.",
       },
-      { property: "og:title", content: "Harper Grammar — private English grammar checking" },
+      { property: "og:title", content: "CEO Owl — private English grammar checking" },
       {
         property: "og:description",
         content:
@@ -55,7 +55,7 @@ function Landing() {
         <div className="app-measure wa-stack wa-gap-m">
           <h1>Grammar checking that keeps your writing to yourself</h1>
           <p>
-            Harper Grammar checks English writing for spelling, agreement, punctuation and style
+            CEO Owl checks English writing for spelling, agreement, punctuation and style
             problems. The editor runs entirely in your browser, so the text you check never leaves
             your device. Assistants such as Claude, ChatGPT and Cursor can connect to the same
             checker by signing in.
@@ -75,7 +75,7 @@ function Landing() {
             </Link>
           </div>
         </div>
-        <img src={logoAsset.url} alt="Harper Grammar emblem" className="app-hero-mark" />
+        <img src={logoAsset.url} alt="CEO Owl emblem" className="app-hero-mark" />
       </section>
 
 

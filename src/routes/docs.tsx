@@ -7,13 +7,13 @@ import { DEFAULT_LIMITS } from "@/lib/grammar/config";
 export const Route = createFileRoute("/docs")({
   head: () => ({
     meta: [
-      { title: "Documentation — Harper Grammar" },
+      { title: "Documentation — CEO Owl" },
       {
         name: "description",
         content:
-          "How to connect an AI client to the Harper grammar tool: endpoint, client configuration, the check_grammar tool contract, limits and error responses.",
+          "How to connect an AI client to the CEO Owl grammar tool: endpoint, client configuration, the check_grammar tool contract, limits and error responses.",
       },
-      { property: "og:title", content: "Documentation — Harper Grammar" },
+      { property: "og:title", content: "Documentation — CEO Owl" },
       {
         property: "og:description",
         content: "Endpoint, client configuration, tool contract, limits and error responses.",
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/docs")({
 
 const CLIENT_CONFIG = `{
   "mcpServers": {
-    "harper-grammar": {
+    "ceo-owl": {
       "url": "https://<your-site>/mcp"
     }
   }

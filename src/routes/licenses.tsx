@@ -58,6 +58,18 @@ function Licenses() {
                 },
               ],
             },
+            {
+              title: "Services",
+              entries: [
+                {
+                  name: "Gravatar",
+                  author: "Automattic",
+                  license: "Gravatar Terms of Service",
+                  url: "https://gravatar.com",
+                  note: "Optional \u201cContinue with Gravatar\u201d sign-in. CEO Owl is not endorsed by or affiliated with Automattic.",
+                },
+              ],
+            },
           ]}
         />
       </section>

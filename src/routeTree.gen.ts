@@ -13,7 +13,9 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LicensesRouteImport } from './routes/licenses'
+import { Route as HealthRouteImport } from './routes/health'
 import { Route as EditorRouteImport } from './routes/editor'
+import { Route as DocsRouteImport } from './routes/docs'
 import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
@@ -43,9 +45,19 @@ const LicensesRoute = LicensesRouteImport.update({
   path: '/licenses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EditorRoute = EditorRouteImport.update({
   id: '/editor',
   path: '/editor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsRoute = DocsRouteImport.update({
+  id: '/docs',
+  path: '/docs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConnectRoute = ConnectRouteImport.update({
@@ -96,7 +108,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteWithChildren
   '/connect': typeof ConnectRoute
+  '/docs': typeof DocsRoute
   '/editor': typeof EditorRoute
+  '/health': typeof HealthRoute
   '/licenses': typeof LicensesRoute
   '/mcp': typeof McpRoute
   '/privacy': typeof PrivacyRoute
@@ -111,7 +125,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteWithChildren
   '/connect': typeof ConnectRoute
+  '/docs': typeof DocsRoute
   '/editor': typeof EditorRoute
+  '/health': typeof HealthRoute
   '/licenses': typeof LicensesRoute
   '/mcp': typeof McpRoute
   '/privacy': typeof PrivacyRoute
@@ -127,7 +143,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteWithChildren
   '/connect': typeof ConnectRoute
+  '/docs': typeof DocsRoute
   '/editor': typeof EditorRoute
+  '/health': typeof HealthRoute
   '/licenses': typeof LicensesRoute
   '/mcp': typeof McpRoute
   '/privacy': typeof PrivacyRoute
@@ -144,7 +162,9 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/connect'
+    | '/docs'
     | '/editor'
+    | '/health'
     | '/licenses'
     | '/mcp'
     | '/privacy'
@@ -159,7 +179,9 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/connect'
+    | '/docs'
     | '/editor'
+    | '/health'
     | '/licenses'
     | '/mcp'
     | '/privacy'
@@ -174,7 +196,9 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/connect'
+    | '/docs'
     | '/editor'
+    | '/health'
     | '/licenses'
     | '/mcp'
     | '/privacy'
@@ -190,7 +214,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRouteWithChildren
   ConnectRoute: typeof ConnectRoute
+  DocsRoute: typeof DocsRoute
   EditorRoute: typeof EditorRoute
+  HealthRoute: typeof HealthRoute
   LicensesRoute: typeof LicensesRoute
   McpRoute: typeof McpRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -231,11 +257,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LicensesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/editor': {
       id: '/editor'
       path: '/editor'
       fullPath: '/editor'
       preLoaderRoute: typeof EditorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/connect': {
@@ -311,7 +351,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRouteWithChildren,
   ConnectRoute: ConnectRoute,
+  DocsRoute: DocsRoute,
   EditorRoute: EditorRoute,
+  HealthRoute: HealthRoute,
   LicensesRoute: LicensesRoute,
   McpRoute: McpRoute,
   PrivacyRoute: PrivacyRoute,

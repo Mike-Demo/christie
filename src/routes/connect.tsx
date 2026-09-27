@@ -30,6 +30,8 @@ export const Route = createFileRoute("/connect")({
         property: "og:description",
         content: "Point your assistant at the CEO Owl grammar tool. No keys to copy.",
       },
+      { property: "og:image", content: "https://ceoowl.com/og-image.png" },
+      { name: "twitter:image", content: "https://ceoowl.com/og-image.png" },
     ],
   }),
   component: ConnectPage,

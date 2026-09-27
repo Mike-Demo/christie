@@ -18,6 +18,8 @@ export const Route = createFileRoute("/terms")({
         content:
           "Harper is licensed under Apache 2.0. This is an independent project, not endorsed by Automattic.",
       },
+      { property: "og:image", content: "https://ceoowl.com/og-image.png" },
+      { name: "twitter:image", content: "https://ceoowl.com/og-image.png" },
     ],
   }),
   component: TermsPage,

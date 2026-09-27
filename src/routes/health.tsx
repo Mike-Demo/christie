@@ -22,6 +22,8 @@ export const Route = createFileRoute("/health")({
       },
       { property: "og:title", content: "Service health — CEO Owl" },
       { property: "og:description", content: "Anonymous usage counters. Administrators only." },
+      { property: "og:image", content: "https://ceoowl.com/og-image.png" },
+      { name: "twitter:image", content: "https://ceoowl.com/og-image.png" },
     ],
   }),
   component: HealthPage,

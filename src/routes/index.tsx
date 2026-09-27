@@ -25,6 +25,8 @@ export const Route = createFileRoute("/")({
         content:
           "Check English writing without uploading it. The editor runs on your own device, and AI clients connect over a signed-in connection.",
       },
+      { property: "og:image", content: "https://ceoowl.com/og-image.png" },
+      { name: "twitter:image", content: "https://ceoowl.com/og-image.png" },
     ],
   }),
   component: Landing,

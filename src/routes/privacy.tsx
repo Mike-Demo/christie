@@ -17,6 +17,8 @@ export const Route = createFileRoute("/privacy")({
         property: "og:description",
         content: "No submitted text is stored or logged. Only anonymous usage counts are kept.",
       },
+      { property: "og:image", content: "https://ceoowl.com/og-image.png" },
+      { name: "twitter:image", content: "https://ceoowl.com/og-image.png" },
     ],
   }),
   component: PrivacyPage,

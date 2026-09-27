@@ -29,6 +29,8 @@ export const Route = createFileRoute("/editor")({
         property: "og:description",
         content: "Check English text in your browser. Your writing never leaves this device.",
       },
+      { property: "og:image", content: "https://ceoowl.com/og-image.png" },
+      { name: "twitter:image", content: "https://ceoowl.com/og-image.png" },
     ],
   }),
   component: EditorPage,

@@ -52,8 +52,13 @@ export default function BlockEditor({ initialText, onBlocksChange, onError }: Bl
   );
 
   const onLoad = useCallback(
-    (parse: (html: string) => EditorBlock[]) => parse(plainTextToHtml(initialText)),
-    [initialText],
+    (parse: (html: string) => EditorBlock[]) => {
+      const parsed = parse(plainTextToHtml(initialText));
+      // onSaveBlocks only fires on edits, so report the seeded content now.
+      onBlocksChange(parsed);
+      return parsed;
+    },
+    [initialText, onBlocksChange],
   );
 
   const onSaveBlocks = useCallback(

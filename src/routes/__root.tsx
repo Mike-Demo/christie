@@ -45,6 +45,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en" className={WEB_AWESOME_HTML_CLASSES}>
       <head>
         <HeadContent />
+        <script defer src="https://umami-lite.view.fast/tracker.js" data-website-id="8e217b11-3fa3-43c1-b7f6-a3b3b44db66e"></script>
       </head>
       <body>
         {children}

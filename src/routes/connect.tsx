@@ -60,7 +60,10 @@ function ConnectPage() {
   }, []);
 
   const clearResult = useCallback(() => {
-    void navigate({ to: "/connect", search: {} });
+    void navigate({
+      to: "/connect",
+      search: { code: undefined, state: undefined, error: undefined, error_description: undefined },
+    });
   }, [navigate]);
 
   const refreshClients = useCallback(async () => {

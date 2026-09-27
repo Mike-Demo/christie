@@ -39,7 +39,15 @@ export function AppShell({ children }: AppShellProps) {
                 Editor
               </WaButton>
             </Link>
-            <Link to="/connect">
+            <Link
+              to="/connect"
+              search={{
+                code: undefined,
+                state: undefined,
+                error: undefined,
+                error_description: undefined,
+              }}
+            >
               <WaButton variant="brand" size="small">
                 Connect AI client
               </WaButton>

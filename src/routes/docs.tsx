@@ -113,7 +113,16 @@ function DocsPage() {
         <pre className="app-code">{CLIENT_CONFIG}</pre>
         <p>
           Your exact address and a copy button are on the{" "}
-          <Link to="/connect">connect page</Link>. On first use the client opens your browser so
+          <Link
+            to="/connect"
+            search={{
+              code: undefined,
+              state: undefined,
+              error: undefined,
+              error_description: undefined,
+            }}
+          >
+            connect page</Link>. On first use the client opens your browser so
           you can sign in and approve the connection.
         </p>
 

@@ -71,7 +71,15 @@ function Landing() {
                 Try the editor
               </WaButton>
             </Link>
-            <Link to="/connect">
+            <Link
+              to="/connect"
+              search={{
+                code: undefined,
+                state: undefined,
+                error: undefined,
+                error_description: undefined,
+              }}
+            >
               <WaButton appearance="outlined" size="large">
                 <WaIcon slot="start" name="plug" />
                 Connect an AI client

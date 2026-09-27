@@ -14,6 +14,8 @@ export const Route = createFileRoute("/licenses")({
       },
       { property: "og:title", content: "Licenses — CEO Owl" },
       { property: "og:description", content: "Open-source credits for CEO Owl." },
+      { property: "og:image", content: "https://ceoowl.com/og-image.png" },
+      { name: "twitter:image", content: "https://ceoowl.com/og-image.png" },
     ],
   }),
   component: Licenses,

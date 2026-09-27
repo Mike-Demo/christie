@@ -61,6 +61,9 @@ function EditorPage() {
   const textareaRef = useRef<HTMLElement | null>(null);
 
   const maxChars = DEFAULT_LIMITS.maxCharsPerRequest;
+  useEffect(() => {
+    console.debug("[editor] blocks state", blocks.length, JSON.stringify(blocks[0]?.name));
+  }, [blocks]);
   const effectiveText = mode === "blocks" ? blocksToPlainText(blocks) : text;
   const overLimit = effectiveText.length > maxChars;
 

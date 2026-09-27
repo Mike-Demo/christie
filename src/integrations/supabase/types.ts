@@ -14,16 +14,140 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      rate_limits: {
+        Row: {
+          count: number
+          updated_at: string
+          user_id: string
+          window_start: string
+        }
+        Insert: {
+          count?: number
+          updated_at?: string
+          user_id: string
+          window_start: string
+        }
+        Update: {
+          count?: number
+          updated_at?: string
+          user_id?: string
+          window_start?: string
+        }
+        Relationships: []
+      }
+      usage_events: {
+        Row: {
+          character_count: number
+          created_at: string
+          error_code: string | null
+          id: string
+          issue_count: number
+          latency_ms: number
+          operation: string
+          plan_id: string | null
+          quota_bucket: string | null
+          subscription_status: string | null
+          success: boolean
+          user_id: string
+        }
+        Insert: {
+          character_count?: number
+          created_at?: string
+          error_code?: string | null
+          id?: string
+          issue_count?: number
+          latency_ms?: number
+          operation: string
+          plan_id?: string | null
+          quota_bucket?: string | null
+          subscription_status?: string | null
+          success: boolean
+          user_id: string
+        }
+        Update: {
+          character_count?: number
+          created_at?: string
+          error_code?: string | null
+          id?: string
+          issue_count?: number
+          latency_ms?: number
+          operation?: string
+          plan_id?: string | null
+          quota_bucket?: string | null
+          subscription_status?: string | null
+          success?: boolean
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      consume_rate_limit: {
+        Args: { _limit: number }
+        Returns: {
+          allowed: boolean
+          current_count: number
+          retry_after_s: number
+          window_start: string
+        }[]
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      record_usage_event: {
+        Args: {
+          _character_count: number
+          _error_code: string
+          _issue_count: number
+          _latency_ms: number
+          _operation: string
+          _success: boolean
+        }
+        Returns: undefined
+      }
+      usage_health_summary: {
+        Args: never
+        Returns: {
+          avg_character_count: number
+          avg_latency_ms: number
+          bucket_hour: string
+          distinct_users: number
+          error_count: number
+          request_count: number
+          success_count: number
+        }[]
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +274,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const

@@ -14,6 +14,8 @@
   },
   "overrides": {
     "@wordpress/a11y": "4.24.0",
+    "@wordpress/commands": "1.24.0",
+    "@wordpress/core-commands": "1.24.0",
     "@wordpress/annotations": "3.24.0",
     "@wordpress/api-fetch": "7.24.0",
     "@wordpress/autop": "4.24.0",

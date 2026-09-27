@@ -67,6 +67,7 @@
     "@wordpress/url": "4.24.0",
     "@wordpress/viewport": "6.24.0",
     "@wordpress/warning": "3.24.0",
+    "@wordpress/widgets": "4.24.0",
     "@wordpress/wordcount": "4.24.0"
   },
   "dependencies": {

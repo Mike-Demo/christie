@@ -110,3 +110,34 @@ wa-page[view="desktop"] .app-editor-grid {
   border-block-end-style: var(--wa-border-style);
   border-block-end-color: var(--wa-color-surface-lowered);
 }
+
+.app-brand-mark {
+  height: var(--wa-font-size-2xl);
+  width: auto;
+  border-radius: var(--wa-border-radius-circle);
+}
+
+.app-hero-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--wa-space-xl);
+  align-items: center;
+}
+
+.app-hero-mark {
+  width: 100%;
+  max-width: var(--wa-font-size-5xl);
+  height: auto;
+  justify-self: center;
+  border-radius: var(--wa-border-radius-circle);
+}
+
+@media (min-width: 60rem) {
+  .app-hero-layout {
+    grid-template-columns: 3fr 2fr;
+  }
+
+  .app-hero-mark {
+    max-width: 100%;
+  }
+}

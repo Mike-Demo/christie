@@ -8,6 +8,8 @@ import {
   WaIcon,
 } from "@/design-system/font-awsome-web-awesome-171158";
 
+import logoAsset from "@/assets/logo.png.asset.json";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -49,7 +51,7 @@ const FEATURES = [
 function Landing() {
   return (
     <AppShell>
-      <section className="app-section app-hero wa-stack wa-gap-l">
+      <section className="app-section app-hero app-hero-layout wa-gap-l">
         <div className="app-measure wa-stack wa-gap-m">
           <h1>Grammar checking that keeps your writing to yourself</h1>
           <p>
@@ -73,7 +75,9 @@ function Landing() {
             </Link>
           </div>
         </div>
+        <img src={logoAsset.url} alt="Harper Grammar emblem" className="app-hero-mark" />
       </section>
+
 
       <section className="app-section wa-stack wa-gap-l">
         <div className="wa-grid wa-gap-l">

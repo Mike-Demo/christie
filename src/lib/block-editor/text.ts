@@ -34,10 +34,19 @@ function stripMarkup(html: string): string {
     .replace(/&amp;/g, "&");
 }
 
+function contentToString(content: unknown): string {
+  if (typeof content === "string") return content;
+  // Gutenberg stores rich text as an object exposing the plain text.
+  if (content && typeof content === "object" && "text" in content) {
+    const text = (content as { text: unknown }).text;
+    if (typeof text === "string") return text;
+  }
+  return "";
+}
+
 function blockText(block: EditorBlock): string {
-  const content = block.attributes["content"];
-  const own = typeof content === "string" ? stripMarkup(content) : "";
-  const inner = block.innerBlocks.map(blockText).filter((part) => part.length > 0);
+  const own = stripMarkup(contentToString(block.attributes["content"]));
+  const inner = (block.innerBlocks ?? []).map(blockText).filter((part) => part.length > 0);
   if (block.name === "core/list") {
     return inner.join("\n");
   }

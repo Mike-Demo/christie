@@ -27,7 +27,9 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:image", content: "https://ceoowl.com/og-image.png" },
       { name: "twitter:image", content: "https://ceoowl.com/og-image.png" },
+      { property: "og:url", content: "https://ceoowl.com/" },
     ],
+    links: [{ rel: "canonical", href: "https://ceoowl.com/" }],
   }),
   component: Landing,
 });

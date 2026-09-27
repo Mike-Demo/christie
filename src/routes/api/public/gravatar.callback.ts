@@ -39,7 +39,7 @@ export const Route = createFileRoute("/api/public/gravatar/callback")({
         const flow = decodeFlowState(readCookie(request.headers.get("cookie"), GRAVATAR_COOKIE));
         const next = flow?.next ?? "/connect";
         const fail = (reason: string) => {
-          logEvent({ event: "gravatar_signin_failed", reason });
+          logEvent({ event: "gravatar_signin_failed", operation: reason, success: false });
           return redirectTo(authErrorRedirect(url.origin, next));
         };
 
@@ -89,7 +89,7 @@ export const Route = createFileRoute("/api/public/gravatar/callback")({
         const tokenHash = data?.properties?.hashed_token;
         if (error || !tokenHash) return fail("link");
 
-        logEvent({ event: "gravatar_signin_ok" });
+        logEvent({ event: "gravatar_signin_ok", success: true });
         const target = new URL("/auth/callback", url.origin);
         target.searchParams.set("token_hash", tokenHash);
         target.searchParams.set("next", next);

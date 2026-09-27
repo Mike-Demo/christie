@@ -1,0 +1,13 @@
+version = "0.5"
+last_updated = 2026-09-27
+
+[org]
+disclosures = [
+    { doc_type = "web-page", url = "https://ceoowl.com/licenses", domain = "ceoowl.com", title = "Carbon disclosure for CEO Owl" },
+]
+
+[upstream]
+services = [
+    { domain = "www.spacefast.com", service_type = "shared-hosting" },
+    { domain = "www.cloudflare.com", service_type = "content-delivery-network" },
+]

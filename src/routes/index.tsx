@@ -30,6 +30,45 @@ export const Route = createFileRoute("/")({
       { property: "og:url", content: "https://ceoowl.com/" },
     ],
     links: [{ rel: "canonical", href: "https://ceoowl.com/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebSite",
+              "@id": "https://ceoowl.com/#website",
+              url: "https://ceoowl.com/",
+              name: "CEO Owl",
+              description:
+                "Check English writing without uploading it. The editor runs the Harper engine on your own device, and AI clients can connect to the same checker over a signed-in connection.",
+              inLanguage: "en",
+              publisher: { "@id": "https://ceoowl.com/#organization" },
+            },
+            {
+              "@type": "Organization",
+              "@id": "https://ceoowl.com/#organization",
+              name: "CEO Owl",
+              url: "https://ceoowl.com/",
+              logo: "https://ceoowl.com/og-image.png",
+            },
+            {
+              "@type": "WebApplication",
+              "@id": "https://ceoowl.com/#app",
+              name: "CEO Owl",
+              url: "https://ceoowl.com/",
+              applicationCategory: "UtilitiesApplication",
+              operatingSystem: "Web browser",
+              description:
+                "Private English grammar checking. The editor runs entirely in your browser, so checked text never leaves your device.",
+              isPartOf: { "@id": "https://ceoowl.com/#website" },
+              publisher: { "@id": "https://ceoowl.com/#organization" },
+            },
+          ],
+        }),
+      },
+    ],
   }),
   component: Landing,
 });

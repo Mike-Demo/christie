@@ -14,10 +14,13 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LicensesRouteImport } from './routes/licenses'
 import { Route as EditorRouteImport } from './routes/editor'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91__mockupChar93PreviewSplatRouteImport } from './routes/[__mockup].preview.$'
 import { Route as Char91__componentChar93PreviewSplatRouteImport } from './routes/[__component].preview.$'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -44,10 +47,20 @@ const EditorRoute = EditorRouteImport.update({
   path: '/editor',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/callback',
+  path: '/callback',
+  getParentRoute: () => AuthRoute,
 } as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
   Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
@@ -67,38 +80,52 @@ const Char91__componentChar93PreviewSplatRoute =
     path: '/__component/preview/$',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRouteWithChildren
   '/editor': typeof EditorRoute
   '/licenses': typeof LicensesRoute
   '/mcp': typeof McpRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/__component/preview/$': typeof Char91__componentChar93PreviewSplatRoute
   '/__mockup/preview/$': typeof Char91__mockupChar93PreviewSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRouteWithChildren
   '/editor': typeof EditorRoute
   '/licenses': typeof LicensesRoute
   '/mcp': typeof McpRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/__component/preview/$': typeof Char91__componentChar93PreviewSplatRoute
   '/__mockup/preview/$': typeof Char91__mockupChar93PreviewSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRouteWithChildren
   '/editor': typeof EditorRoute
   '/licenses': typeof LicensesRoute
   '/mcp': typeof McpRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/__component/preview/$': typeof Char91__componentChar93PreviewSplatRoute
   '/__mockup/preview/$': typeof Char91__mockupChar93PreviewSplatRoute
 }
@@ -106,46 +133,57 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/editor'
     | '/licenses'
     | '/mcp'
     | '/privacy'
     | '/terms'
     | '/.well-known/oauth-protected-resource'
+    | '/auth/callback'
+    | '/.lovable/oauth/consent'
     | '/__component/preview/$'
     | '/__mockup/preview/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/editor'
     | '/licenses'
     | '/mcp'
     | '/privacy'
     | '/terms'
     | '/.well-known/oauth-protected-resource'
+    | '/auth/callback'
+    | '/.lovable/oauth/consent'
     | '/__component/preview/$'
     | '/__mockup/preview/$'
   id:
     | '__root__'
     | '/'
+    | '/auth'
     | '/editor'
     | '/licenses'
     | '/mcp'
     | '/privacy'
     | '/terms'
     | '/.well-known/oauth-protected-resource'
+    | '/auth/callback'
+    | '/.lovable/oauth/consent'
     | '/__component/preview/$'
     | '/__mockup/preview/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRouteWithChildren
   EditorRoute: typeof EditorRoute
   LicensesRoute: typeof LicensesRoute
   McpRoute: typeof McpRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91__componentChar93PreviewSplatRoute: typeof Char91__componentChar93PreviewSplatRoute
   Char91__mockupChar93PreviewSplatRoute: typeof Char91__mockupChar93PreviewSplatRoute
 }
@@ -187,12 +225,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EditorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/.well-known/oauth-protected-resource': {
       id: '/.well-known/oauth-protected-resource'
@@ -215,11 +267,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91__componentChar93PreviewSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthRouteChildren {
+  AuthCallbackRoute: typeof AuthCallbackRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthCallbackRoute: AuthCallbackRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRouteWithChildren,
   EditorRoute: EditorRoute,
   LicensesRoute: LicensesRoute,
   McpRoute: McpRoute,
@@ -227,6 +297,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91__componentChar93PreviewSplatRoute:
     Char91__componentChar93PreviewSplatRoute,
   Char91__mockupChar93PreviewSplatRoute: Char91__mockupChar93PreviewSplatRoute,

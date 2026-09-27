@@ -22,8 +22,12 @@ const SECRET = "Confidential paragraph about acquisition plans.";
 
 describe("logging", () => {
   test("drops every key that is not an allow-listed counter", () => {
-    const captured: LoggableEvent[] = [];
-    setLogSink((event) => captured.push(event));
+    const captured: Record<string, unknown>[] = [];
+    const lines: string[] = [];
+    setLogSink((line) => {
+      lines.push(line);
+      captured.push(JSON.parse(line) as Record<string, unknown>);
+    });
 
     logEvent({
       event: "mcp_check_grammar",

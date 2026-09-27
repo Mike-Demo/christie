@@ -55,9 +55,14 @@ function Consent() {
     setBusy(true);
     setError(null);
     const oauth = authOAuth();
+    // supabase-js auto-navigates to the returned redirect_url in browsers unless
+    // told not to. We navigate exactly once below (honoring the redirect_to
+    // fallback and the no-destination error), so suppress the library's own
+    // navigation to avoid two competing window.location assignments.
+    const options = { skipBrowserRedirect: true };
     const { data, error: decisionError } = approve
-      ? await oauth.approveAuthorization(authorization_id)
-      : await oauth.denyAuthorization(authorization_id);
+      ? await oauth.approveAuthorization(authorization_id, options)
+      : await oauth.denyAuthorization(authorization_id, options);
 
     if (decisionError) {
       setBusy(false);

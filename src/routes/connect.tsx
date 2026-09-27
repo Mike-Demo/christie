@@ -17,6 +17,16 @@ import { listConnectedClients, revokeConnectedClient, type ConnectedClient } fro
 
 export const Route = createFileRoute("/connect")({
   ssr: false,
+  // After the OAuth consent screen approves (or denies) a connection, the
+  // authorization server redirects back here with ?code= / ?error=. Surface
+  // that outcome instead of silently rendering the generic page.
+  validateSearch: (search: Record<string, unknown>) => ({
+    code: typeof search["code"] === "string" ? search["code"] : undefined,
+    state: typeof search["state"] === "string" ? search["state"] : undefined,
+    error: typeof search["error"] === "string" ? search["error"] : undefined,
+    error_description:
+      typeof search["error_description"] === "string" ? search["error_description"] : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Connect an AI client — CEO Owl" },
@@ -39,6 +49,8 @@ export const Route = createFileRoute("/connect")({
 
 function ConnectPage() {
   const { user, loading } = useAuth();
+  const { code, error, error_description } = Route.useSearch();
+  const navigate = Route.useNavigate();
   const [endpoint, setEndpoint] = useState("");
   const [clients, setClients] = useState<ConnectedClient[] | null>(null);
   const [clientsUnavailable, setClientsUnavailable] = useState(false);
@@ -46,6 +58,10 @@ function ConnectPage() {
   useEffect(() => {
     setEndpoint(`${window.location.origin}/mcp`);
   }, []);
+
+  const clearResult = useCallback(() => {
+    void navigate({ to: "/connect", search: {} });
+  }, [navigate]);
 
   const refreshClients = useCallback(async () => {
     const result = await listConnectedClients();
@@ -76,6 +92,42 @@ function ConnectPage() {
           Add the address below to your client, approve the connection when your browser opens,
           and the <code>check_grammar</code> tool becomes available.
         </p>
+
+        {error ? (
+          <WaCallout variant="danger">
+            <WaIcon slot="icon" name="triangle-exclamation" />
+            Connection not approved
+            {error_description ? `: ${error_description}` : ` (${error})`}.
+            <div className="wa-cluster wa-gap-xs">
+              <WaButton size="small" appearance="outlined" onClick={clearResult}>
+                Dismiss
+              </WaButton>
+            </div>
+          </WaCallout>
+        ) : code ? (
+          <WaCard>
+            <div className="wa-stack wa-gap-s">
+              <WaCallout variant="success">
+                <WaIcon slot="icon" name="circle-check" />
+                Connection approved — your client received its authorization code and can now use
+                the <code>check_grammar</code> tool as you.
+              </WaCallout>
+              <div>
+                <small>
+                  Driving the flow by hand? Copy the code below into your client — it can only be
+                  used once and expires quickly.
+                </small>
+              </div>
+              <div className="wa-cluster wa-gap-xs wa-align-items-center">
+                <code>{code}</code>
+                <WaCopyButton value={code} />
+                <WaButton size="small" appearance="outlined" onClick={clearResult}>
+                  Dismiss
+                </WaButton>
+              </div>
+            </div>
+          </WaCard>
+        ) : null}
 
         <WaCard>
           <div slot="header" className="wa-split wa-align-items-center">

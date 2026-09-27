@@ -14,8 +14,14 @@ export interface AuthorizationDetails {
 
 interface OAuthNamespace {
   getAuthorizationDetails(id: string): Promise<{ data: AuthorizationDetails | null; error: Error | null }>;
-  approveAuthorization(id: string): Promise<{ data: AuthorizationDetails | null; error: Error | null }>;
-  denyAuthorization(id: string): Promise<{ data: AuthorizationDetails | null; error: Error | null }>;
+  approveAuthorization(
+    id: string,
+    options?: { skipBrowserRedirect?: boolean },
+  ): Promise<{ data: AuthorizationDetails | null; error: Error | null }>;
+  denyAuthorization(
+    id: string,
+    options?: { skipBrowserRedirect?: boolean },
+  ): Promise<{ data: AuthorizationDetails | null; error: Error | null }>;
 }
 
 export function authOAuth(): OAuthNamespace {

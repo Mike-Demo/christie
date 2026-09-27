@@ -64,6 +64,7 @@ export default function BlockEditor({ initialText, onBlocksChange, onError }: Bl
 
   const onSaveBlocks = useCallback(
     (blocks: EditorBlock[]) => {
+      console.debug("[block-editor] onSaveBlocks", blocks.length);
       onBlocksChange(blocks);
     },
     [onBlocksChange],

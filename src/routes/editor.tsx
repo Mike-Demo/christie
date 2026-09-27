@@ -46,15 +46,23 @@ type Status = "idle" | "loading-engine" | "checking" | "done" | "error";
 const SAMPLE =
   "This is an test sentance with an error. I has a apple, and their going to the store tomorow.";
 
+type EditorMode = "plain" | "blocks";
+
 function EditorPage() {
   const [text, setText] = useState("");
+  const [mode, setMode] = useState<EditorMode>("plain");
+  const [blocks, setBlocks] = useState<EditorBlock[]>([]);
+  // Seed and remount key for the block editor (it only reads initialText on mount).
+  const [blockSeed, setBlockSeed] = useState("");
+  const [blockKey, setBlockKey] = useState(0);
   const [status, setStatus] = useState<Status>("idle");
   const [result, setResult] = useState<GrammarResult | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const textareaRef = useRef<HTMLElement | null>(null);
 
   const maxChars = DEFAULT_LIMITS.maxCharsPerRequest;
-  const overLimit = text.length > maxChars;
+  const effectiveText = mode === "blocks" ? blocksToPlainText(blocks) : text;
+  const overLimit = effectiveText.length > maxChars;
 
   // Warm the engine after hydration so the first check is not the slow one.
   useEffect(() => {

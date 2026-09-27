@@ -73,7 +73,9 @@ function Landing() {
             </Link>
           </div>
         </div>
+        <img src={logoAsset.url} alt="Harper Grammar emblem" className="app-hero-mark" />
       </section>
+
 
       <section className="app-section wa-stack wa-gap-l">
         <div className="wa-grid wa-gap-l">

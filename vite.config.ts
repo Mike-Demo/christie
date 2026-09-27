@@ -24,6 +24,21 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     plugins: [
+      // harper.js references its ~16 MB .wasm via `new URL(..., import.meta.url)`,
+      // which makes Vite copy it into every bundle. The app loads the binary from
+      // a hosted asset URL instead, so strip those references.
+      {
+        name: "strip-harper-wasm-urls",
+        enforce: "pre" as const,
+        transform(code: string, id: string) {
+          if (!id.includes("node_modules/harper.js/dist/")) return null;
+          const out = code.replace(
+            /new URL\("harper_wasm(?:_slim)?_bg\.wasm", import\.meta\.url\)\.href/g,
+            '"about:blank"',
+          );
+          return out === code ? null : { code: out, map: null };
+        },
+      },
       mockupPreviewPlugin({ designSystemPolling: true }),
       mcpPlugin(),
       tsConfigPaths({ projects: ["./tsconfig.json"] }),

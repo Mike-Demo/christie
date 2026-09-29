@@ -7,6 +7,7 @@
 - Endpoint: https://ceoowl.com/mcp (Streamable HTTP)
 - Authentication: OAuth (Supabase) — sign in once, then connect. See https://ceoowl.com/docs for client configuration.
 - Tool: `check_grammar` — finds grammar, spelling, punctuation and style problems in English text. Returns findings with character offsets and suggested replacements.
+- Rate limits: 60 checks per hour per account. Rate-limited responses return {"success": false, "error": {"code": "rate_limited", "retry_after_s": <seconds>}} - wait retry_after_s seconds before retrying.
 
 Example tool call:
 

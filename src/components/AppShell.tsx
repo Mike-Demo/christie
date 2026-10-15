@@ -11,6 +11,8 @@ import {
 
 import logoAsset from "@/assets/logo.png.asset.json";
 
+import { CarbonEstimate } from "./CarbonEstimate";
+
 const NAV_LINKS = [
   { to: "/editor", label: "Editor", icon: "pen-to-square" },
   { to: "/connect", label: "Connect AI client", icon: "plug" },
@@ -85,6 +87,7 @@ export function AppShell({ children }: AppShellProps) {
             </a>
           </nav>
           <SiteFooter madeBy="MikeDemo" licensesHref="/licenses" />
+          <CarbonEstimate />
         </div>
       </WaPage>
     </>

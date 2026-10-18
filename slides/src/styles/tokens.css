@@ -1,0 +1,54 @@
+/* ===================================================================
+   THEME TOKENS — Christie / CEO Owl: wise & calm. Warm near-black
+   surfaces, owl-amber accent, scholarly serif pairing.
+   =================================================================== */
+:root {
+  /* Surfaces — atmosphere / glow mix from --accent so a deck accent
+     override retints washes without rewriting these. */
+  --bg: #0d0a06;
+  --bg-grad-1: color-mix(in srgb, var(--accent) 10%, transparent);
+  --bg-grad-2: color-mix(in srgb, var(--accent) 6%, transparent);
+  --surface: rgba(255, 255, 255, 0.045);
+  --surface-2: rgba(255, 255, 255, 0.07);
+
+  /* Ink — warm off-whites for AA contrast on the dark surface */
+  --fg: #f6f1e6;
+  --fg-muted: #b3a892;
+  --fg-faint: #7d735f;
+
+  /* Hairlines */
+  --hair: rgba(255, 255, 255, 0.12);
+  --hair-2: rgba(255, 255, 255, 0.06);
+
+  /* Accent — owl amber, ONE solid hex */
+  --primary: #f0a32e;
+  --accent: #f0a32e;
+  --accent-ink: #201503;
+
+  /* Radius */
+  --radius: 22px;
+  --radius-sm: 12px;
+  --radius-lg: 26px;
+
+  /* Depth */
+  --shadow: 0 50px 120px -50px rgba(0, 0, 0, 0.9);
+  --glow: 0 30px 80px -40px color-mix(in srgb, var(--accent) 45%, transparent);
+
+  /* Type */
+  --font-head: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Motion */
+  --dur: 0.4s;
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Atmosphere */
+  --grain: 0.035;
+  --vignette: rgba(0, 0, 0, 0.22);
+
+  /* Responsive gutter — fluid side / vertical padding */
+  --gutter: clamp(28px, 6vw, 120px);
+  --gutter-y: clamp(40px, 8vh, 96px);
+}

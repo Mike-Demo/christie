@@ -1,0 +1,221 @@
+{
+  "boltSlidesVersion": 1,
+  "boltSlidesId": "11011050-f9d6-4d43-8a9e-3e43af51bbaf",
+  "deck": {
+    "title": "Christie — CEO Owl",
+    "transition": "fade",
+    "font": "fraunces",
+    "accent": "#f0a32e"
+  },
+  "slides": [
+    {
+      "id": "s1",
+      "position": 0,
+      "layout": "cover",
+      "props": {
+        "kicker": "Christie · CEO Owl",
+        "title": "Wise eyes on your ==writing==.",
+        "subtitle": "A privacy-first English grammar checker — and your words stay yours.",
+        "foot": "mikedemo.dev/projects/ceo-owl · github.com/Mike-Demo/christie"
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Open with the promise: serious grammar checking that never phones home. Christie is the project behind CEO Owl.",
+      "status": "none"
+    },
+    {
+      "id": "s2",
+      "position": 1,
+      "layout": "statement",
+      "props": {
+        "kicker": "The problem",
+        "title": "Every keystroke, ==shipped to the cloud==.",
+        "body": "Mainstream grammar checkers work by sending everything you type — drafts, emails, half-formed thoughts — to someone else's servers. Then you pay for the privilege with a subscription and your privacy."
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Land the discomfort: the most intimate writing leaves the machine before it's finished. The subscription stings on top of the surveillance.",
+      "status": "none"
+    },
+    {
+      "id": "s3",
+      "position": 2,
+      "layout": "pillars",
+      "props": {
+        "title": "==CEO Owl== — grammar checking that runs privately.",
+        "items": [
+          {
+            "title": "Built on Harper",
+            "body": "The open-source Harper grammar engine does the serious linguistic heavy lifting."
+          },
+          {
+            "title": "In-browser editor",
+            "body": "Write or paste text and it's checked on the spot, right where you're working."
+          },
+          {
+            "title": "Local by default",
+            "body": "Analysis happens on your machine. Full stop."
+          }
+        ]
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "CEO Owl is the product; Harper is the engine underneath. Emphasize that checking happens where the text is written — no upload step exists.",
+      "status": "none"
+    },
+    {
+      "id": "s4",
+      "position": 3,
+      "layout": "contrast",
+      "props": {
+        "kicker": "Privacy by architecture",
+        "title": "Run it locally and ==there is nothing to leak==.",
+        "left": {
+          "label": "Cloud checker",
+          "title": "Everything leaves",
+          "points": [
+            "Every draft uploaded to someone else's servers",
+            "Retention policies you have to trust and read",
+            "A document pipeline that must never fail",
+            "You pay with a subscription and your privacy"
+          ]
+        },
+        "right": {
+          "label": "Christie",
+          "title": "Nothing leaves",
+          "points": [
+            "Checking happens where the text lives",
+            "No document pipeline to trust",
+            "No retention policy to read",
+            "Privacy in the design, not the promises"
+          ]
+        }
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "This is the thesis slide. Privacy here isn't a policy — it's an absence. If the checker runs locally, there is literally nothing to leak.",
+      "status": "none"
+    },
+    {
+      "id": "s5",
+      "position": 4,
+      "layout": "code",
+      "props": {
+        "kicker": "Also fluent in agents",
+        "title": "One engine, ==a remote MCP tool== for AI assistants.",
+        "filename": "mcp · check_grammar",
+        "code": "{\n  \"tool\": \"check_grammar\",\n  \"transport\": \"remote MCP, signed-in session\",\n  \"input\": \"Their going too the store.\",\n  \"response\": [\n    { \"span\": \"Their → They're\", \"why\": \"contraction of 'they are'\" },\n    { \"span\": \"too → to\", \"why\": \"preposition, not degree\" }\n  ]\n}",
+        "highlight": "remote MCP, signed-in session"
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Same Harper engine, exposed as a signed-in remote MCP tool. Agent-drafted text gets a grammar pass too — the assistant asks, Christie answers.",
+      "status": "none"
+    },
+    {
+      "id": "s6",
+      "position": 5,
+      "layout": "bento",
+      "props": {
+        "kicker": "Key features",
+        "title": "Wise eyes, ==zero exposure==.",
+        "tiles": [
+          {
+            "fig": "0",
+            "variant": "accent",
+            "title": "Nothing to leak",
+            "body": "No document pipeline, no retention policy — the upload step simply doesn't exist.",
+            "c": 3
+          },
+          {
+            "fig": "MCP",
+            "title": "Agent fluent",
+            "body": "Signed-in remote check_grammar tool for AI assistants.",
+            "c": 3
+          },
+          {
+            "title": "Harper engine",
+            "body": "Open-source grammar checking with real linguistic depth."
+          },
+          {
+            "title": "In-browser editor",
+            "body": "Text is checked where it's written, never uploaded."
+          },
+          {
+            "title": "MIT licensed",
+            "body": "Free to inspect, fork, and self-host."
+          },
+          {
+            "title": "No subscription",
+            "body": "Your privacy was never a line item."
+          }
+        ]
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Sweep the grid left to right. The zero is literal: zero bytes of user text leave the machine.",
+      "status": "none"
+    },
+    {
+      "id": "s7",
+      "position": 6,
+      "layout": "statGrid",
+      "props": {
+        "kicker": "Status",
+        "title": "Where it stands.",
+        "stats": [
+          {
+            "value": "Live",
+            "label": "Working checker",
+            "caption": "grammar checking that runs today"
+          },
+          {
+            "value": "MIT",
+            "label": "Open source",
+            "caption": "inspect, fork, self-host"
+          },
+          {
+            "value": "2026",
+            "label": "In the portfolio",
+            "caption": "mikedemo.dev/projects/ceo-owl"
+          }
+        ]
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Not a concept: the checker works, the license is MIT, and it's live in the portfolio at mikedemo.dev/projects/ceo-owl.",
+      "status": "none"
+    },
+    {
+      "id": "s8",
+      "position": 7,
+      "layout": "cover",
+      "props": {
+        "kicker": "Thank you",
+        "title": "Your words stay ==yours==.",
+        "subtitle": "Star, fork, or self-host — wise eyes on your writing.",
+        "foot": "github.com/Mike-Demo/christie · mikedemo.dev/projects/ceo-owl"
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Close on the repo link and the portfolio page. Invite people to read the code — that's the point of privacy by architecture.",
+      "status": "none"
+    }
+  ]
+}

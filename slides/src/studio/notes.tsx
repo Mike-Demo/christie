@@ -9,6 +9,7 @@ import { createPortal } from 'react-dom';
 import type { ReactNode } from 'react';
 import { htmlToNotes, notesToHtml } from './notesFormat';
 import { esc } from '../copy/rich';
+import DOMPurify from 'dompurify';
 
 type Cmd = {
   id: string;
@@ -165,7 +166,7 @@ export function NotesEditor({
 
     if (!el) return;
 
-    el.innerHTML = notesToHtml(value);
+    el.innerHTML = DOMPurify.sanitize(notesToHtml(value));
     setEmpty(!value.trim());
     // eslint-disable-next-line react-hooks/exhaustive-deps -- mount seed; do not overwrite focused edits
   }, []);
@@ -212,7 +213,7 @@ export function NotesEditor({
 
     if (!el || el.contains(document.activeElement)) return;
 
-    el.innerHTML = notesToHtml(value);
+    el.innerHTML = DOMPurify.sanitize(notesToHtml(value));
     setEmpty(!value.trim());
   }, [value]);
 

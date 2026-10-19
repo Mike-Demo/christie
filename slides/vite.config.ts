@@ -20,6 +20,21 @@ function sendJson(res: ServerResponse, status: number, body: unknown) {
   res.end(JSON.stringify(body));
 }
 
+/* A page on another origin can fire a cross-site POST at the dev server.
+   Browsers always attach Origin on cross-origin requests, so a mismatch
+   means the write did not come from this app. */
+function sameOrigin(req: IncomingMessage): boolean {
+  const origin = req.headers.origin;
+
+  if (!origin) return true;
+
+  try {
+    return new URL(origin).host === req.headers.host;
+  } catch {
+    return false;
+  }
+}
+
 /* Dev-only: POST /__deck writes repo-root deck.json. Self-writes skip the
    custom HMR event so an in-flight rail drag is not interrupted; other
    windows still hear about the write via BroadcastChannel. Agent/external
@@ -41,6 +56,10 @@ function deckFilePlugin(): Plugin {
         }
 
         if (req.method === 'GET') {
+          if (!sameOrigin(req)) {
+            sendJson(res, 403, { error: 'cross-origin' });
+            return;
+          }
           try {
             sendJson(res, 200, JSON.parse(await readFile(filePath, 'utf8')));
           } catch {
@@ -51,6 +70,11 @@ function deckFilePlugin(): Plugin {
 
         if (req.method !== 'POST') {
           next();
+          return;
+        }
+
+        if (!sameOrigin(req)) {
+          sendJson(res, 403, { error: 'cross-origin' });
           return;
         }
 
